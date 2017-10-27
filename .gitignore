@@ -1,7 +1,20 @@
-.DS_STORE
-*.log
+# dependencies
 node_modules/
 dist/
-coverage
-.idea/
-.yarn-cache
+package-lock.json
+
+# testing
+coverage/
+
+# production
+build/
+
+# misc
+.DS_STORE
+*.log
+.DS_Store
+Thumbs.db
+.env
+.idea
+npm-debug.log
+compilation-stats.json
