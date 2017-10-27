@@ -1,6 +1,6 @@
 ## sub-doc contains all document in analysis phase
 
--[ ] #1
+- [ ] #1
 
 -[ ] #2
 
