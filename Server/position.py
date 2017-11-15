@@ -1,4 +1,4 @@
-import datetime 
+import datetime
 
 class Position:
 
@@ -9,7 +9,7 @@ class Position:
 
     def isValid(self):
         return True
-    
+
     def getUserPosition(self, name):
         return ['null']
 
@@ -20,4 +20,3 @@ class Position:
         self.timestamp = datetime.datetime.now()
         self.latitude = latitude
         self.longitude = longitude
-    
