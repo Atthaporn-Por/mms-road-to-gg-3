@@ -2,7 +2,7 @@ import React from 'react'
 import { List, fromJS } from 'immutable'
 import PropTypes from 'prop-types'
 
-import { Image, StyleSheet } from 'react-native'
+import { Image, StyleSheet, View } from 'react-native'
 import {
   Left, Body, Right, Content,
   Text, Card, CardItem, Button, Icon
@@ -19,15 +19,15 @@ export class HistoryScreen extends React.Component {
         </CardItem>
         <CardItem style={styles.cardDescription}>
           <Left style={styles.leftDescription}>
-            <Text>{item.get('date')}</Text>
-            <Text note>{item.get('driver').get('car_model')}</Text>
+            <Text style={styles.leftDescription}>{item.get('date')}</Text>
+            <Text style={styles.leftDescription} note>{item.get('driver').get('car_model')}</Text>
           </Left>
           <Right style={styles.rightDescription}>
             <Text>{item.get('cost')}</Text>
             {
               item.get('state') === 'canceled'
                 ? <Text note>Canceled</Text>
-                : null
+                : <Text />
             }
           </Right>
         </CardItem>
@@ -36,7 +36,6 @@ export class HistoryScreen extends React.Component {
   }
 
   render () {
-    console.log(this.props.history.get(0).get('map_url'));
     return (
       <PopupLayout title='Travel History' onPressBack={() => this.props.navigation.goBack(null)}>
         <Content>
@@ -58,13 +57,14 @@ const styles = StyleSheet.create({
   },
   leftDescription: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-start'
+    flexDirection: 'column',
+    alignSelf: 'flex-start'
   },
   rightDescription: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-end'
+    flexDirection: 'column',
+    alignSelf: 'flex-end',
+    justifyContent: 'flex-start'
   },
   cardDescription: {
     backgroundColor: '#fff'

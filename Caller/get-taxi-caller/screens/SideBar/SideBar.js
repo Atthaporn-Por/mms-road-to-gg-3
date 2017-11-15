@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { fromJS, Map } from 'immutable'
 
 import { StyleSheet } from 'react-native'
-import { Container, Content, Text, List, ListItem, Thumbnail, Icon } from 'native-base'
+import { Container, Content, Text, List, ListItem, Thumbnail, Icon, Body } from 'native-base'
 
 const routes = [
   {
@@ -25,16 +25,16 @@ export class SideBar extends React.Component {
     return (
       <Container>
         <Content>
-          <Content contentContainerStyle={styles.header}>
+          <Body style={styles.header}>
             <Thumbnail source={{ uri: user.get('image_url') }} />
-            <Content contentContainerStyle={styles.headerDetails}>
-              <Text>{user.get('full_name')}</Text>
-              <Text note style={styles.headerRating}>
+            <Body style={styles.headerDetails}>
+              <Text style={{ color: '#fff' }}>{user.get('full_name')}</Text>
+              <Text note style={[styles.headerRating, { color: '#fff' }]}>
                 {user.get('rating')}
-                <Icon name='star' />
+                <Icon style={{ fontSize: 20, color: '#fff', marginLeft: 5 }} name='star' />
               </Text>
-            </Content>
-          </Content>
+            </Body>
+          </Body>
           <List>
             {
               routes.map(item => (
@@ -54,17 +54,22 @@ export class SideBar extends React.Component {
 const styles = StyleSheet.create({
   header: {
     backgroundColor: 'black',
-    height: 200,
+    height: 150,
     flex: 1,
+    alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    paddingHorizontal: '6.5%'
   },
   headerDetails: {
     flexDirection: 'column',
-    justifyContent: 'flex-start'
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    marginHorizontal: '10%'
   },
   headerRating: {
     flexDirection: 'row',
+    alignItems: 'flex-start',
     justifyContent: 'flex-start'
   }
 })
@@ -76,7 +81,9 @@ SideBar.propTypes = {
 
 SideBar.defaultProps = {
   user: fromJS({
-    image_url: 'https://lh3.google.com/u/0/d/1UcTVCODVGJjqmsxqM0TmK1-0iTMvl3DQ=w1920-h949-iv1'
+    image_url: 'https://scontent.fbkk2-2.fna.fbcdn.net/v/t1.0-9/13502128_631267920353764_6789056590304521383_n.jpg?_nc_eui2=v1%3AAeFGep53kTXlgOLzQUo4klRkLVnQvH1FCr-gXAf45ODOB91bf_4BzRysq1_hU06K4WNUNcO8gRO2vL3wAav2OnDzHMJGl9iV8L3s7oN1QZTh-Q&oh=91250ff0c8aec7ce87cc5035f8e45735&oe=5AA2EE16',
+    full_name: 'Thuchchai Jiamsorn',
+    rating: '4.85'
   })
 }
 
