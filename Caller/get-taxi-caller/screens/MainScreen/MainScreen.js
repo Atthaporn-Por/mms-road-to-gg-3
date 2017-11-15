@@ -41,7 +41,9 @@ const styles = StyleSheet.create({
     zIndex: 1
   },
   pickPlaceMenu: {
-    height: null
+    height: null,
+    marginTop: '5%',
+    marginHorizontal: '5%'
   }
 })
 
