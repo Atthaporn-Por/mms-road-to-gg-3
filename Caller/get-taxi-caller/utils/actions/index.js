@@ -5,3 +5,5 @@ export error from './error'
 export filter from './filter'
 export newResource from './newResource'
 export resource from './resource'
+
+export newTransaction from './newTransaction'

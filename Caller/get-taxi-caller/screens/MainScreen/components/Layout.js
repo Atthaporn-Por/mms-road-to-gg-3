@@ -17,9 +17,7 @@ export class MainScreen extends React.Component {
             </Button>
           </Left>
         </Header>
-        <Content>
-          {this.props.children}
-        </Content>
+        {this.props.children}
       </Container>
     )
   }

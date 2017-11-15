@@ -1,36 +1,40 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import {
   Container, Header, Content, Footer, Left, Body, Title,
   Text, Button, Icon
 } from 'native-base'
 
 import Layout from './components/Layout'
-import Map from './components/Map'
+import MainMap from './components/MainMap'
+import PickPlaceMenu from './components/PickPlaceMenu'
 
 export class MainScreen extends React.Component {
   render () {
     return (
       <Layout onPressMenu={() => this.props.navigation.navigate('DrawerOpen')}>
-        <Map />
+        <MainMap {...this.props}>
+          {/* <View style={styles.overLayPanel}> */}
+            <PickPlaceMenu style={styles.pickPlaceMenu} navigation={this.props.navigation} />
+          {/* </View> */}
+        </MainMap>
       </Layout>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff'
+  overLayPanel: {
+    flex: 1
+  },
+  pickPlaceMenu: {
+
   }
 })
 
 MainScreen.propTypes = {
-  title: PropTypes.string,
-  children: PropTypes.node,
-
-  onPressMenu: PropTypes.func
+  navigation: PropTypes.object
 }
 
 export default MainScreen

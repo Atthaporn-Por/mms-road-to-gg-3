@@ -8,9 +8,9 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "primaryColor": "#cccccc",
-    "icon": "./assets/images/gettaxi_icon.png",
+    "icon": "./assets/icons/gettaxi_icon.png",
     "splash": {
-      "image": "./assets/images/gettaxi_logo_2.png",
+      "image": "./assets/images/splash/loading-0.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
