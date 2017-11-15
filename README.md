@@ -7,3 +7,7 @@ The following README.md will be used to describe conventions specific to the `Ta
 2. you will see the new tab such as Board and Report
 3. click to Report 
 4. Click to Burndown
+
+# How to run server
+1. install PyMySQL pip install PyMySQL
+2. runserver python server.py
