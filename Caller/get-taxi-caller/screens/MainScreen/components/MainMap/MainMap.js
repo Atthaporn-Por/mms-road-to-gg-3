@@ -61,7 +61,7 @@ export class MainMap extends React.Component {
 
   render () {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, this.props.style]}>
         <MapView showsUserLocation
           style={styles.map}
           region={this.state.mapRegion}
@@ -108,6 +108,7 @@ const styles = StyleSheet.create({
 })
 
 MainMap.propTypes = {
+  style: PropTypes.number,
   children: PropTypes.node
 }
 
