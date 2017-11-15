@@ -11,4 +11,5 @@ The following README.md will be used to describe conventions specific to the `Ta
 # How to run server
 1. install PyMySQL `pip install PyMySQL`
 2. runserver `python server.py` 
+
    example : `http://localhost:5000/caller/searchtaxi?latitude=30.741566&longitude=178.521730`
