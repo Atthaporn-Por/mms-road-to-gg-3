@@ -9,5 +9,5 @@ The following README.md will be used to describe conventions specific to the `Ta
 4. Click to Burndown
 
 # How to run server
-1. install PyMySQL pip install PyMySQL
-2. runserver python server.py
+1. install PyMySQL `pip install PyMySQL`
+2. runserver `python server.py`
