@@ -1,17 +1,21 @@
 import { Notifications } from 'expo'
 import React from 'react'
 import { StackNavigator } from 'react-navigation'
+import { Root } from 'native-base'
 
-import MainTabNavigator from './MainTabNavigator'
+// import MainTabNavigator from './MainTabNavigator'
+import MainDrawerNavigator from './MainDrawerNavigator'
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync'
 
 const RootStackNavigator = StackNavigator(
   {
     Main: {
-      screen: MainTabNavigator
+      // screen: MainTabNavigator
+      screen: MainDrawerNavigator
     }
   },
   {
+    headerMode: 'none',
     navigationOptions: () => ({
       headerTitleStyle: {
         fontWeight: 'normal'
@@ -30,7 +34,11 @@ export default class RootNavigator extends React.Component {
   }
 
   render () {
-    return <RootStackNavigator />
+    return (
+      <Root>
+        <RootStackNavigator />
+      </Root>
+    )
   }
 
   _registerForPushNotifications () {
