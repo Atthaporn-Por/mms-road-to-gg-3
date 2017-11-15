@@ -4,6 +4,7 @@ import { Platform, StatusBar, StyleSheet, View } from 'react-native'
 import { Provider } from 'react-redux'
 import { AppLoading, Asset, Font } from 'expo'
 import { Ionicons } from '@expo/vector-icons'
+// import RootNavigation from './navigation/MainDrawerNavigator'
 import RootNavigation from './navigation/RootNavigation'
 import createStore from './store/configureStore'
 
@@ -18,10 +19,10 @@ const store = createStore(initialState)
 // ========================================================
 // Store Instantiation
 // ========================================================
-connectToDevTools({
-  host: HOST_URL,
-  resolveRNStyle: require('flattenStyle')
-})
+// connectToDevTools({
+//   host: HOST_URL,
+//   resolveRNStyle: require('flattenStyle')
+// })
 
 // ========================================================
 // Render Setup
