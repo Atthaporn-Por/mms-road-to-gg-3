@@ -25,7 +25,7 @@ export class PickPlaceMenu extends React.Component {
             </Item>
             <Item inlineLabel last>
               <Button transparent onPress={() => navigation.navigate('ChooseDropOffScreen')}>
-                <Label>{ pickUp ? pickUp.get('name') : 'Drop Off' }</Label>
+                <Label>{ dropOff ? dropOff.get('name') : 'Drop Off' }</Label>
                 <Input disabled />
               </Button>
             </Item>

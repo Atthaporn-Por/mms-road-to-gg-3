@@ -16,7 +16,6 @@ export class MainScreen extends React.Component {
       <Layout onPressMenu={() => this.props.navigation.navigate('DrawerOpen')}>
         <MainMap {...this.props} styles={styles.mainMap} />
         <View style={styles.overLayPanel}>
-          <Text>Hi</Text>
           <PickPlaceMenu style={styles.pickPlaceMenu} navigation={this.props.navigation} />
         </View>
       </Layout>
