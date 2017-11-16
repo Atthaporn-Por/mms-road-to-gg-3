@@ -6,7 +6,7 @@ import {
   Text, Button, Icon
 } from 'native-base'
 
-export class CoreLayout extends React.Component {
+export class PopupLayout extends React.Component {
   render () {
     return (
       <Container style={styles.container}>
@@ -36,11 +36,11 @@ const styles = StyleSheet.create({
   }
 })
 
-CoreLayout.propTypes = {
+PopupLayout.propTypes = {
   title: PropTypes.string,
   children: PropTypes.node,
 
   onPressBack: PropTypes.func
 }
 
-export default CoreLayout
+export default PopupLayout

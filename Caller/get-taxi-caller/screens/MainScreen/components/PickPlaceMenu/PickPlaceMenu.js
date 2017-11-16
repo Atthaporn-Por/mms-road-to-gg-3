@@ -10,8 +10,9 @@ import {
 export class PickPlaceMenu extends React.Component {
   render () {
     const { mainMap, navigation } = this.props
-    const pickUp = mainMap.get('pickup')
-    const dropOff = mainMap.get('dropOff')
+    const pickUp = mainMap.get('pick_up')
+    const dropOff = mainMap.get('drop_off')
+    console.log(mainMap, pickUp);
 
     return (
       <Container style={[styles.container, this.props.style]}>
@@ -19,13 +20,13 @@ export class PickPlaceMenu extends React.Component {
           <Form>
             <Item inlineLabel first>
               <Button transparent onPress={() => navigation.navigate('ChoosePickUpScreen')}>
-                <Label>{ pickUp ? pickUp.get('name') : 'Pick Up' }</Label>
+                <Label>{ pickUp.size ? pickUp.get('name') : 'Pick Up' }</Label>
                 <Input disabled />
               </Button>
             </Item>
             <Item inlineLabel last>
               <Button transparent onPress={() => navigation.navigate('ChooseDropOffScreen')}>
-                <Label>{ dropOff ? dropOff.get('name') : 'Drop Off' }</Label>
+                <Label>{ dropOff.size ? dropOff.get('name') : 'Drop Off' }</Label>
                 <Input disabled />
               </Button>
             </Item>
@@ -44,6 +45,7 @@ const styles = StyleSheet.create({
 
 PickPlaceMenu.propTypes = {
   style: PropTypes.number,
+  navigation: PropTypes.object,
   mainMap: PropTypes.instanceOf(Map)
 }
 

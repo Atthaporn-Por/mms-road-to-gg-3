@@ -3,13 +3,13 @@ import { DrawerNavigator } from 'react-navigation'
 
 import SideBar from 'screens/SideBar'
 
-import MainScreen from 'screens/MainScreen'
+import MainMapStackNavigator from './MainMapStackNavigator'
 import SettingsScreen from 'screens/SettingsScreen'
 import HistoryScreen from 'screens/HistoryScreen'
 
 export default DrawerNavigator(
   {
-    MainScreen: { screen: MainScreen },
+    MainScreen: { screen: MainMapStackNavigator },
     SettingsScreen: { screen: SettingsScreen },
     HistoryScreen: { screen: HistoryScreen }
   },
