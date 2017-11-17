@@ -5,8 +5,8 @@ import { Provider } from 'react-redux'
 import { AppLoading, Asset, Font } from 'expo'
 import { Ionicons, FontAwesome } from '@expo/vector-icons'
 // import RootNavigation from './navigation/MainDrawerNavigator'
-import RootNavigation from './navigation/RootNavigation'
-import createStore from './store/configureStore'
+import RootNavigation from 'navigation/RootNavigation'
+import createStore from 'store/configureStore'
 
 import { HOST_URL } from 'react-native-dotenv'
 
@@ -15,6 +15,8 @@ import { HOST_URL } from 'react-native-dotenv'
 // ========================================================
 const initialState = window.___INITIAL_STATE__
 const store = createStore(initialState)
+
+window.localStorage = store
 
 // ========================================================
 // Store Instantiation
@@ -57,8 +59,8 @@ export default class App extends React.Component {
   _loadResourcesAsync = async () => {
     return Promise.all([
       Asset.loadAsync([
-        require('./assets/images/robot-dev.png'),
-        require('./assets/images/robot-prod.png')
+        require('assets/images/robot-dev.png'),
+        require('assets/images/robot-prod.png')
       ]),
       Font.loadAsync([
         // This is the font that we are using for our tab bar

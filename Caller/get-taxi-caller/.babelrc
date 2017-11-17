@@ -8,7 +8,7 @@
       "plugins": [
         "transform-react-jsx-source",
         ["module-resolver", {
-          "root": ["."],
+          "root": ["./src"],
           "alias": {
             "underscore": "lodash"
           }
