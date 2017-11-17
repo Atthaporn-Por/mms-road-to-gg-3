@@ -8,7 +8,7 @@ import {
   Text, Card, CardItem, Button, Icon
 } from 'native-base'
 
-import PopupLayout from 'components/PopupLayout'
+import PopupLayout from 'layouts/PopupLayout'
 
 export class HistoryScreen extends React.Component {
   getHistoryCards () {

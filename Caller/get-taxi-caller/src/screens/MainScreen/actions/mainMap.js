@@ -22,11 +22,13 @@ export const updatePickUp = createAction(UPDATE_PICK_UP)
 export const updateDropOff = createAction(UPDATE_DROP_OFF)
 export const updateMapRoute = createAction(UPDATE_MAP_ROUTE)
 
-const getNearbyTaxi = () => {
-  return (dispatch, state) => {
-    
-  }
-}
+// const getNearbyTaxi = () => {
+//   return (dispatch, state) => {
+//     return request.send({
+// 
+//     })
+//   }
+// }
 
 // ------------------------------------
 // Action Handlers

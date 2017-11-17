@@ -6,7 +6,8 @@ import {
   Text, Button, Icon
 } from 'native-base'
 
-import Layout from './components/Layout'
+import Layout from 'layouts/MainScreenLayout'
+// import Layout from 'components/PopupLayout'
 import MainMap from './components/MainMap'
 import PickPlaceMenu from './components/PickPlaceMenu'
 

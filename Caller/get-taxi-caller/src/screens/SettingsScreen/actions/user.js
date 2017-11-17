@@ -36,9 +36,11 @@ const ACTION_HANDLERS = {
 const initialState = fromJS({
   favorite_places: [{
     description: 'Work',
+    name: 'Work',
     geometry: { location: { lat: 13.7563, lng: 100.5018 } }
   }, {
     description: 'Home',
+    name: 'Home',
     geometry: { location: { lat: 13.8563, lng: 100.6018 } }
   }]
 })
