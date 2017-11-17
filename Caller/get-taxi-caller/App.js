@@ -1,6 +1,6 @@
 import { connectToDevTools } from 'react-devtools-core'
 import React from 'react'
-import { Platform, StatusBar, StyleSheet, View } from 'react-native'
+import { AsyncStorage, Platform, StatusBar, StyleSheet, View } from 'react-native'
 import { Provider } from 'react-redux'
 import { AppLoading, Asset, Font } from 'expo'
 import { Ionicons, FontAwesome } from '@expo/vector-icons'
@@ -16,7 +16,11 @@ import { HOST_URL } from 'react-native-dotenv'
 const initialState = window.___INITIAL_STATE__
 const store = createStore(initialState)
 
-window.localStorage = store
+// ========================================================
+// Window the AsyncStorage
+// ========================================================
+window.AsyncStorage = AsyncStorage
+console.log('To clear storage : AsyncStorage.clear()')
 
 // ========================================================
 // Store Instantiation

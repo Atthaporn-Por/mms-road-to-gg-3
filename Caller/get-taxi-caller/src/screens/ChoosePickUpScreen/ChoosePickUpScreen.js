@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { List } from 'immutable'
 
-import PopupLayout from 'components/PopupLayout'
+import PopupLayout from 'layouts/PopupLayout'
 import GoogleAutoPick from 'components/GoogleAutoPick'
 
 export class ReactComponent extends React.Component {
