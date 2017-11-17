@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet, View } from 'react-native'
 import {
-  Container, Header, Content, Footer, Left, Body, Title,
+  Container, Header, Content, Footer, Left, Body, Right, Title,
   Text, Button, Icon
 } from 'native-base'
 
@@ -16,6 +16,8 @@ export class MainScreen extends React.Component {
               <Icon name='menu' />
             </Button>
           </Left>
+          <Body />
+          <Right />
         </Header>
         <View style={{ flex: 1 }}>
           {this.props.children}
