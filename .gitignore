@@ -2,6 +2,7 @@
 node_modules/
 dist/
 package-lock.json
+package-lock.json
 
 # testing
 coverage/
@@ -18,3 +19,6 @@ Thumbs.db
 .idea
 npm-debug.log
 compilation-stats.json
+
+# python
+*.pyc
