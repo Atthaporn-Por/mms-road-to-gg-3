@@ -1,9 +1,9 @@
 import { connect } from 'react-redux'
 import { Map } from 'immutable'
 
-import ChooseDropOffScreen from './ChooseDropOffScreen'
+import ChoosePickUpScreen from './ChoosePickUpScreen'
 
-import { updateDropOff } from '../MainScreen/actions/mainMap'
+import { updatePickUp } from 'screens/MainScreen/actions/mainMap'
 
 const mapStateToProps = (state, ownProps) => ({
   ...ownProps,
@@ -11,7 +11,7 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = {
-  updateDropOff
+  updatePickUp
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChooseDropOffScreen)
+export default connect(mapStateToProps, mapDispatchToProps)(ChoosePickUpScreen)

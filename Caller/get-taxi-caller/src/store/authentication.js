@@ -146,7 +146,18 @@ const ACTION_HANDLERS = boilerplate.actionHandlers({
 // Reducer
 // ------------------------------------
 const initialState = Immutable.fromJS({
-  signInLoading: false
+  signInLoading: false,
+  currentUser: {
+    favorite_places: [{
+      description: 'Work',
+      name: 'Work',
+      geometry: { location: { lat: 13.7563, lng: 100.5018 } }
+    }, {
+      description: 'Home',
+      name: 'Home',
+      geometry: { location: { lat: 13.8563, lng: 100.6018 } }
+    }]
+  }
 })
 
 export default function authenticationReducer (state = initialState, action) {

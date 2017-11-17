@@ -34,6 +34,7 @@ export default function configureStore (initialState = Immutable.Map(), onComple
   // persistStore(store, { storage: AsyncStorage }, onCompletion)
   persistStore(store, { storage: AsyncStorage }, () => {
     store.dispatch(updateRehydrated(true))
+    onCompletion && onCompletion()
   })
 
   return store

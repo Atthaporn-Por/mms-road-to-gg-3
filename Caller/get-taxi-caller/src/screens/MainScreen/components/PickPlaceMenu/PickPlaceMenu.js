@@ -12,7 +12,6 @@ export class PickPlaceMenu extends React.Component {
     const { mainMap, navigation } = this.props
     const pickUp = mainMap.get('pick_up')
     const dropOff = mainMap.get('drop_off')
-    console.log(mainMap, pickUp);
 
     return (
       <Container style={[styles.container, this.props.style]}>
