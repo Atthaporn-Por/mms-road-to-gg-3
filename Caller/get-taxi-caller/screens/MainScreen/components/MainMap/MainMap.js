@@ -13,12 +13,18 @@ import {
 
 import MapView, { Marker } from 'react-native-maps'
 import Polyline from '@mapbox/polyline'
+import Dimensions from 'Dimensions'
 
 const GEOLOCATION_OPTIONS = { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
 
+let { width, height } = Dimensions.get('window')
+const ASPECT_RATIO = width / height
+const LATITUDE_DELTA = 60 //Very high zoom level
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO
+
 export class MainMap extends React.Component {
   state = {
-    mapRegion: { latitude: 13.756300, longitude: 100.501800, latitudeDelta: 0.1, longitudeDelta: 0.1 },
+    mapRegion: { latitude: 13.756300, longitude: 100.501800, latitudeDelta: LATITUDE_DELTA, longitudeDelta: LONGITUDE_DELTA },
     pickUpLatLong: { latitude: 13.7563, longitude: 100.5018 },
     dropOffLatLong: { latitude: 13.7563, longitude: 100.5018 }
   }
@@ -43,8 +49,8 @@ export class MainMap extends React.Component {
     const region = {
       latitude: location.coords.latitude,
       longitude: location.coords.longitude,
-      latitudeDelta: 0.1,
-      longitudeDelta: 0.05
+      latitudeDelta: LATITUDE_DELTA,
+      longitudeDelta: LONGITUDE_DELTA
     }
     this.setState({ location, region })
   }

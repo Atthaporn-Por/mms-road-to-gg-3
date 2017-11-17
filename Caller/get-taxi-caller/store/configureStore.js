@@ -6,13 +6,11 @@ import thunk from 'redux-thunk'
 import { persistStore, autoRehydrate } from 'redux-persist-immutable'
 import Immutable from 'immutable'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import logger from 'redux-logger'
 
 import reducer from './reducers'
 
 export default function configureStore (initialState = Immutable.Map(), onCompletion: ()=>void):any {
   const middleware = [
-    logger,
     thunk
   ]
 
@@ -46,12 +44,23 @@ export default function configureStore (initialState = Immutable.Map(), onComple
   //   })
   // )
 
-  const enhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(
+const composeEnhancers =
+  typeof window === 'object' &&
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+      // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+    }) : compose
+
+  const enhancer = composeEnhancers(
     applyMiddleware(...middleware),
     autoRehydrate()
   )
 
-  const store = createStore(reducer(), initialState, enhancer)
+  const store = createStore(
+    reducer(),
+    initialState,
+    enhancer
+  )
   persistStore(store, { storage: AsyncStorage }, onCompletion)
 
   return store

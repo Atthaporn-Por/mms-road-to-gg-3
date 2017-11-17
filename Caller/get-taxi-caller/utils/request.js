@@ -3,12 +3,15 @@ import prefix from 'superagent-prefix'
 
 import { normalize, updateEntities } from 'store/entities'
 
+import { BASE_API } from 'react-native-dotenv'
+
 const superagent = defaults()
 
 // Setup Request defaults
-superagent.auth(process.env.CLIENT_ID, process.env.CLIENT_PASSWORD)
-          .use(prefix(process.env.BASE_API))
+superagent
+          .use(prefix(BASE_API))
           .on('error', error => console.warn(error))
+          // .auth(process.env.CLIENT_ID, process.env.CLIENT_PASSWORD)
 
 // Create helper method for attaching Access Tokens
 superagent.request.Request.prototype.accessToken = function (accessToken) {

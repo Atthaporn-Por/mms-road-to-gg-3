@@ -92,7 +92,7 @@ HistoryScreen.defaultProps = {
       license_plate: 'กข-5731'
     },
     state: 'finish',
-    map_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Polarlicht_2.jpg/1920px-Polarlicht_2.jpg'
+    map_url: 'https://www.mx7.com/i/27b/Nlde1S.jpg'
   }, {
     id: 1,
     cost: '฿90.10',
@@ -103,7 +103,7 @@ HistoryScreen.defaultProps = {
       license_plate: 'กข-5731'
     },
     state: 'canceled',
-    map_url: 'https://lh3.google.com/u/0/d/1UcTVCODVGJjqmsxqM0TmK1-0iTMvl3DQ=w1920-h949-iv1'
+    map_url: 'https://www.mx7.com/i/27b/Nlde1S.jpg'
   }])
 }
 

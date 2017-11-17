@@ -1,6 +1,8 @@
 import { createAction } from 'redux-actions'
 import { Map, List, fromJS } from 'immutable'
 
+import request from 'utils/request'
+
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -19,6 +21,12 @@ export const clearMainMap = createAction(CLEAR)
 export const updatePickUp = createAction(UPDATE_PICK_UP)
 export const updateDropOff = createAction(UPDATE_DROP_OFF)
 export const updateMapRoute = createAction(UPDATE_MAP_ROUTE)
+
+const getNearbyTaxi = () => {
+  return (dispatch, state) => {
+    
+  }
+}
 
 // ------------------------------------
 // Action Handlers
