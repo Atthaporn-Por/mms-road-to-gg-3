@@ -28,13 +28,19 @@ export class MainMap extends React.Component {
     this.setCurrentLocation()
   }
 
+  shouldComponentUpdate (nextProps, nextState) {
+    return nextProps.currentRegion.latitude !== this.state.currentRegion.latitude &&
+      nextProps.currentRegion.longitude !== this.state.currentRegion.longitude
+  }
+
   componentWillUnmount () {
     clearInterval(this.state.getNearbyTaxiInterval)
   }
 
   state = {
     regionSet: false,
-    getNearbyTaxiInterval: null
+    getNearbyTaxiInterval: null,
+    currentRegion: { latitude: 13.7563, longitude: 100.5018, latitudeDelta: 0.0430, longitudeDelta: 0.0275 }
   }
 
   setCurrentLocation () {
@@ -61,6 +67,12 @@ export class MainMap extends React.Component {
   }
 
   _handleCurrentRegionChange = mapRegion => {
+    if (this.state.regionSet) {
+      this.setState({ currentRegion: mapRegion })
+    }
+  }
+
+  _handleCurrentRegionChangeComplete = mapRegion => {
     if (this.state.regionSet) {
       this.props.updateCurrentRegion(mapRegion)
     }
@@ -124,8 +136,9 @@ export class MainMap extends React.Component {
         <MapView showsUserLocation
           style={styles.map}
           onMapReady={() => { this.setState({ regionSet: true }) }}
-          region={this.props.currentRegion.toJS()}
-          onRegionChange={this._handleCurrentRegionChange}>
+          region={this.state.currentRegion}
+          // onRegionChangeComplete={this._handleCurrentRegionChangeComplete}
+          onRegionChange={this._handleCurrentRegionChange} >
           {this.getPickUpPin()}
           {this.getDropOffPin()}
           {this.getMapRoute()}
