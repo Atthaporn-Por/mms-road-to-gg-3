@@ -1,4 +1,4 @@
-import { connectToDevTools } from 'react-devtools-core'
+// import { connectToDevTools } from 'react-devtools-core'
 import React from 'react'
 import { AsyncStorage, Platform, StatusBar, StyleSheet, View } from 'react-native'
 import { Provider } from 'react-redux'
@@ -35,7 +35,7 @@ const store = createStore(initialState)
 // Window the AsyncStorage
 // ========================================================
 window.AsyncStorage = AsyncStorage
-console.log('To clear storage : AsyncStorage.clear()')
+console.log('To clear storage : AsyncStorage.clear() then restart app')
 
 // ========================================================
 // Render Setup

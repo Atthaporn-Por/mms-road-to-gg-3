@@ -13,6 +13,7 @@
     "@expo/samples": "2.1.1",
     "@mapbox/polyline": "^0.2.0",
     "axios": "^0.17.1",
+    "babel-plugin-transform-inline-environment-variables": "^0.2.0",
     "expo": "^22.0.0",
     "immutable": "^3.8.2",
     "lodash": "^4.17.4",
