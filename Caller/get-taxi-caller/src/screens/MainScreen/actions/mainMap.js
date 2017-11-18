@@ -6,6 +6,8 @@ import Polyline from '@mapbox/polyline'
 
 // import request from 'utils/request'
 
+import { GOOGLE_MAP_API_KEY } from 'react-native-dotenv'
+
 // ------------------------------------
 // Constants
 // ------------------------------------
@@ -37,17 +39,15 @@ export const getDirections = ({ pickUpLocation, dropOffLocation } = {}) => {
   return (dispatch, getState) => {
     const mainMap = getState().get('mainMap', Map())
 
-    pickUpLocation = pickUpLocation || mainMap.get('pick_up').get('geometry').get('location')
-    dropOffLocation = dropOffLocation || mainMap.get('drop_off').get('geometry').get('location')
+    pickUpLocation = pickUpLocation || mainMap.get('pick_up', Map()).get('geometry', Map()).get('location', Map())
+    dropOffLocation = dropOffLocation || mainMap.get('drop_off', Map()).get('geometry', Map()).get('location', Map())
 
-    if (!((pickUpLocation && pickUpLocation.size) || (dropOffLocation && dropOffLocation.size))) {
-      return
+    if (pickUpLocation.size && dropOffLocation.size) {
+      dispatch(getDirectionsApi({
+        pickUpLocation: `${pickUpLocation.get('latitude')},${pickUpLocation.get('longitude')}`,
+        dropOffLocation: `${dropOffLocation.get('latitude')},${dropOffLocation.get('longitude')}`
+      }))
     }
-
-    dispatch(getDirectionsApi({
-      pickUpLocation: `${pickUpLocation.get('latitude')},${pickUpLocation.get('longitude')}`,
-      dropOffLocation: `${dropOffLocation.get('latitude')},${dropOffLocation.get('longitude')}`
-    }))
   }
 }
 
@@ -56,7 +56,8 @@ export const getDirectionsApi = ({ pickUpLocation, dropOffLocation }) => {
     return request.get('https://maps.googleapis.com/maps/api/directions/json')
       .query({
         origin: pickUpLocation,
-        destination: dropOffLocation
+        destination: dropOffLocation,
+        key: GOOGLE_MAP_API_KEY
       })
       .on('error', error => console.warn(error))
       .then(res => {

@@ -7,7 +7,7 @@ import { updateDropOff, getDirections } from 'screens/MainScreen/actions/mainMap
 
 const mapStateToProps = (state, ownProps) => ({
   ...ownProps,
-  favorite_places: state.get('authentication', Map()).get('favorite_places')
+  favorite_places: state.getIn(['authentication', 'currentUser'], Map()).get('favorite_places')
 })
 
 const mapDispatchToProps = {
