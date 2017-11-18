@@ -18,3 +18,14 @@ Thumbs.db
 .idea
 npm-debug.log
 compilation-stats.json
+
+# server
+
+# for test class
+test.py
+
+# pycache file
+__pycache__/
+
+# configure host and port
+configure
