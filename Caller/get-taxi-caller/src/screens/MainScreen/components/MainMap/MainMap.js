@@ -23,10 +23,22 @@ const LATITUDE_DELTA = 60 //Very high zoom level
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO
 
 export class MainMap extends React.Component {
+  componentDidMount () {
+    this.props.getNearbyTaxi()
+    this.setState({
+      getNearbyTaxiInterval: setInterval(() => {
+        this.props.getNearbyTaxi()
+      }, 10000)
+    })
+  }
+
+  componentWillUnmount () {
+    clearInterval(this.state.getNearbyTaxiInterval)
+  }
+
   state = {
     mapRegion: { latitude: 13.756300, longitude: 100.501800, latitudeDelta: LATITUDE_DELTA, longitudeDelta: LONGITUDE_DELTA },
-    pickUpLatLong: { latitude: 13.7563, longitude: 100.5018 },
-    dropOffLatLong: { latitude: 13.7563, longitude: 100.5018 }
+    getNearbyTaxiInterval: null
   }
 
   locationChanged = (location) => {
@@ -136,7 +148,7 @@ MainMap.propTypes = {
   children: PropTypes.node,
   mainMap: PropTypes.instanceOf(Map),
 
-  getDirections: PropTypes.func
+  getNearbyTaxi: PropTypes.func
 }
 
 MainMap.defaultProps = {

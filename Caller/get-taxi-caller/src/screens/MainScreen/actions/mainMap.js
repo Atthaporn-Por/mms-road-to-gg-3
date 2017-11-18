@@ -1,10 +1,10 @@
 import { createAction } from 'redux-actions'
 import { Map, List, fromJS } from 'immutable'
-import request from 'superagent'
+import superagent from 'superagent'
 
 import Polyline from '@mapbox/polyline'
 
-// import request from 'utils/request'
+import request from 'utils/request'
 
 import { GOOGLE_MAP_API_KEY } from 'react-native-dotenv'
 
@@ -27,13 +27,32 @@ export const updatePickUp = createAction(UPDATE_PICK_UP)
 export const updateDropOff = createAction(UPDATE_DROP_OFF)
 export const updateMapRoute = createAction(UPDATE_MAP_ROUTE)
 
-// const getNearbyTaxi = () => {
-//   return (dispatch, state) => {
-//     return request.send({
-//
-//     })
-//   }
-// }
+export const getNearbyTaxi = ({ latitude, longitude } = {}) => {
+  return (dispatch, getState) => {
+    const allPosibleLocation = [
+      () => ({ latitude, longitude }),
+      () => (getState().get('mainMap').get('pick_up', Map()).get('geometry', Map()).get('location', Map()).toJS()),
+      () => (getState().get('mainMap').get('mapRegion', Map()).toJS())
+    ]
+
+    const location = _.find(allPosibleLocation, item => {
+      return _.size(_.omitBy(item(), _.isNil))
+    })
+
+    console.log(location())
+
+    if (_.isNil(location)) {
+      return
+    }
+
+    // return superagent.get('localhost:5000/searchtaxi')
+    return request.get('/searchtaxi')
+      .query(location())
+      .end(res => {
+        console.log(res)
+      })
+  }
+}
 
 export const getDirections = ({ pickUpLocation, dropOffLocation } = {}) => {
   return (dispatch, getState) => {
@@ -51,9 +70,9 @@ export const getDirections = ({ pickUpLocation, dropOffLocation } = {}) => {
   }
 }
 
-export const getDirectionsApi = ({ pickUpLocation, dropOffLocation }) => {
+export const getDirectionsApi = ({ pickUpLocation, dropOffLocation } = {}) => {
   return (dispatch, getState) => {
-    return request.get('https://maps.googleapis.com/maps/api/directions/json')
+    return superagent.get('https://maps.googleapis.com/maps/api/directions/json')
       .query({
         origin: pickUpLocation,
         destination: dropOffLocation,
