@@ -8,9 +8,8 @@ export const makeRootReducer = (asyncReducers) => {
     i18n:           require('./i18n').default,
     persist:        require('./persist').default,
     locations:      require('./locations').default,
-    // newTransaction: require('./newTransaction').default,
+    newTransaction: require('./newTransaction').default,
     mainMap:        require('../screens/MainScreen/actions/mainMap').default,
-    user:           require('../screens/SettingsScreen/actions/user').default,
     ...asyncReducers
   })
 }

@@ -23,26 +23,22 @@ const LATITUDE_DELTA = 60 //Very high zoom level
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO
 
 export class MainMap extends React.Component {
-  state = {
-    mapRegion: { latitude: 13.756300, longitude: 100.501800, latitudeDelta: LATITUDE_DELTA, longitudeDelta: LONGITUDE_DELTA },
-    pickUpLatLong: { latitude: 13.7563, longitude: 100.5018 },
-    dropOffLatLong: { latitude: 13.7563, longitude: 100.5018 }
+  componentDidMount () {
+    this.props.getNearbyTaxi()
+    this.setState({
+      getNearbyTaxiInterval: setInterval(() => {
+        this.props.getNearbyTaxi()
+      }, 10000)
+    })
   }
 
-  componentWillReceiveProps (nextProps) {
-    if (!isEqual(this.props.mainMap, nextProps.mainMap)) {
-      const mainMap = nextProps.mainMap
-      if (mainMap.get('pick_up').size && mainMap.get('drop_off').size) {
-        console.log('ok')
-        const pickUpLocation = mainMap.get('pick_up').get('geometry').get('location')
-        const dropOffLocation = mainMap.get('drop_off').get('geometry').get('location')
-        this.getDirections(
-          `${pickUpLocation.get('latitude')},${pickUpLocation.get('longitude')}`,
-          `${dropOffLocation.get('latitude')},${dropOffLocation.get('longitude')}`
-        )
-      }
-      // Location.watchPositionAsync(GEOLOCATION_OPTIONS, this.locationChanged)
-    }
+  componentWillUnmount () {
+    clearInterval(this.state.getNearbyTaxiInterval)
+  }
+
+  state = {
+    mapRegion: { latitude: 13.756300, longitude: 100.501800, latitudeDelta: LATITUDE_DELTA, longitudeDelta: LONGITUDE_DELTA },
+    getNearbyTaxiInterval: null
   }
 
   locationChanged = (location) => {
@@ -59,35 +55,14 @@ export class MainMap extends React.Component {
     this.setState({ mapRegion })
   }
 
-  async getDirections (startLoc, destinationLoc) {
-    try {
-      let resp = await fetch(`https://maps.googleapis.com/maps/api/directions/json?origin=${ startLoc }&destination=${ destinationLoc }`)
-      let respJson = await resp.json()
-      let points = Polyline.decode(respJson.routes[0].overview_polyline.points)
-      let coords = points.map((point, index) => {
-        return {
-          latitude : point[0],
-          longitude : point[1]
-        }
-      })
-
-      this.props.updateMapRoute(coords)
-      console.log(coords);
-      return coords
-    } catch (error) {
-      alert(error)
-      return error
-    }
-  }
-
   getPickUpPin () {
-    const { mainMap } = this.props
+    const { newTransaction } = this.props
 
-    if (mainMap.get('pick_up', Map()).size === 0) {
+    if (newTransaction.get('pick_up', Map()).size === 0) {
       return
     }
 
-    const pickUpLatLong = mainMap.getIn(['pick_up', 'geometry', 'location'])
+    const pickUpLatLong = newTransaction.getIn(['pick_up', 'geometry', 'location'])
 
     return (
       pickUpLatLong && pickUpLatLong.size &&
@@ -101,13 +76,13 @@ export class MainMap extends React.Component {
   }
 
   getDropOffPin () {
-    const { mainMap } = this.props
+    const { newTransaction } = this.props
 
-    if (mainMap.get('drop_off', Map()).size === 0) {
+    if (newTransaction.get('drop_off', Map()).size === 0) {
       return
     }
 
-    const dropOffLatLong = mainMap.getIn(['drop_off', 'geometry', 'location'])
+    const dropOffLatLong = newTransaction.getIn(['drop_off', 'geometry', 'location'])
 
     return (
       dropOffLatLong && dropOffLatLong.size &&
@@ -171,11 +146,15 @@ const styles = StyleSheet.create({
 MainMap.propTypes = {
   style: PropTypes.number,
   children: PropTypes.node,
-  mainMap: PropTypes.instanceOf(Map)
+  mainMap: PropTypes.instanceOf(Map),
+  newTransaction: PropTypes.instanceOf(Map),
+
+  getNearbyTaxi: PropTypes.func
 }
 
 MainMap.defaultProps = {
-  mainMap: Map()
+  mainMap: Map(),
+  newTransaction: Map()
 }
 
 export default MainMap

@@ -4,10 +4,10 @@ import request from 'utils/request'
 
 // import { push } from 'react-router-redux'
 
-// import { normalize } from 'store/entities'
-import { setFlashMessage } from 'store/interface'
+// import { normalize } from 'stores/entities'
+import { setFlashMessage } from './interface'
 
-const boilerplate = require('store/resources').default('authentication', null)
+// const boilerplate = require('stores/resources').default('authentication', null)
 
 // ------------------------------------
 // Constants
@@ -119,7 +119,7 @@ export const logout = () => {
 // ------------------------------------
 // Action Handlers
 // ------------------------------------
-const ACTION_HANDLERS = boilerplate.actionHandlers({
+const ACTION_HANDLERS = {
   [UPDATE_CURRENT_USER]: (state, { payload }) => {
     return state.merge({
       currentUser: payload
@@ -140,13 +140,24 @@ const ACTION_HANDLERS = boilerplate.actionHandlers({
       signInLoading: payload
     })
   }
-})
+}
 
 // ------------------------------------
 // Reducer
 // ------------------------------------
 const initialState = Immutable.fromJS({
-  signInLoading: false
+  signInLoading: false,
+  currentUser: {
+    favorite_places: [{
+      description: 'Work',
+      name: 'Work',
+      geometry: { location: { lat: 13.7563, lng: 100.5018 } }
+    }, {
+      description: 'Home',
+      name: 'Home',
+      geometry: { location: { lat: 13.8563, lng: 100.6018 } }
+    }]
+  }
 })
 
 export default function authenticationReducer (state = initialState, action) {

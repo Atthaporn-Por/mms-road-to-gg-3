@@ -1,18 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Map } from 'immutable'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet } from 'react-native'
+
 import {
-  Container, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right,
-  Header, Form, Item, Input, Label
+  Container, Content, Button, Form, Item, Input, Label
 } from 'native-base'
 
 export class PickPlaceMenu extends React.Component {
   render () {
-    const { mainMap, navigation } = this.props
-    const pickUp = mainMap.get('pick_up')
-    const dropOff = mainMap.get('drop_off')
-    console.log(mainMap, pickUp);
+    const { newTransaction, navigation } = this.props
+    const pickUp = newTransaction.get('pick_up')
+    const dropOff = newTransaction.get('drop_off')
 
     return (
       <Container style={[styles.container, this.props.style]}>
@@ -46,7 +45,7 @@ const styles = StyleSheet.create({
 PickPlaceMenu.propTypes = {
   style: PropTypes.number,
   navigation: PropTypes.object,
-  mainMap: PropTypes.instanceOf(Map)
+  newTransaction: PropTypes.instanceOf(Map)
 }
 
 PickPlaceMenu.defaultProps = {

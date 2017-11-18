@@ -18,7 +18,9 @@
       "__DEV__"      : false,
       "__TEST__"     : false,
       "__PROD__"     : false,
-      "__COVERAGE__" : false
+      "__COVERAGE__" : false,
+      "alert" : false,
+      "_" : false
     },
     "rules": {
         "no-underscore-dangle": "off",

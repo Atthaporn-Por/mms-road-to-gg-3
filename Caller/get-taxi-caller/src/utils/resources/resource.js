@@ -2,8 +2,8 @@ import { createAction } from 'redux-actions'
 import { push } from 'react-router-redux'
 import { merge } from 'lodash'
 
-import { setFlashMessage } from 'store/interface'
-import { denormalize } from 'store/entities'
+import { setFlashMessage } from 'stores/interface'
+import { denormalize } from 'stores/entities'
 
 import request from '../request'
 import constants from './constants'

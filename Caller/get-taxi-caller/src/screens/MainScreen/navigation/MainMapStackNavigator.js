@@ -1,9 +1,9 @@
 import React from 'react'
 import { StackNavigator } from 'react-navigation'
 
-import MainScreen from 'screens/MainScreen'
-import ChoosePickUpScreen from 'screens/ChoosePickUpScreen'
-import ChooseDropOffScreen from 'screens/ChooseDropOffScreen'
+import MainScreen from '../MainScreen'
+import ChoosePickUpScreen from '../screens/ChoosePickUpScreen'
+import ChooseDropOffScreen from '../screens/ChooseDropOffScreen'
 
 export default StackNavigator(
   {

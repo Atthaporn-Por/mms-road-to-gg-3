@@ -12,6 +12,8 @@
   "dependencies": {
     "@expo/samples": "2.1.1",
     "@mapbox/polyline": "^0.2.0",
+    "axios": "^0.17.1",
+    "babel-plugin-transform-inline-environment-variables": "^0.2.0",
     "expo": "^22.0.0",
     "immutable": "^3.8.2",
     "lodash": "^4.17.4",
@@ -31,6 +33,7 @@
     "redux-immutable": "^4.0.0",
     "redux-persist": "^5.3.5",
     "redux-persist-immutable": "^4.3.1",
+    "redux-promise": "^0.5.3",
     "redux-thunk": "^2.2.0",
     "remote-redux-devtools": "^0.5.12",
     "superagent": "^3.8.1",

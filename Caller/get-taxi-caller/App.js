@@ -1,14 +1,29 @@
-import { connectToDevTools } from 'react-devtools-core'
+// import { connectToDevTools } from 'react-devtools-core'
 import React from 'react'
-import { Platform, StatusBar, StyleSheet, View } from 'react-native'
+import { AsyncStorage, Platform, StatusBar, StyleSheet, View } from 'react-native'
 import { Provider } from 'react-redux'
 import { AppLoading, Asset, Font } from 'expo'
 import { Ionicons, FontAwesome } from '@expo/vector-icons'
 // import RootNavigation from './navigation/MainDrawerNavigator'
 import RootNavigation from 'navigation/RootNavigation'
-import createStore from 'store/configureStore'
+import createStore from 'stores/configureStore'
 
 import { HOST_URL } from 'react-native-dotenv'
+
+if (__DEV__) {
+  // ========================================================
+  // Setup HTTP Debugging on DevTools
+  // ========================================================
+  global.XMLHttpRequest = global.originalXMLHttpRequest || global.XMLHttpRequest
+
+  // ========================================================
+  // Store Instantiation
+  // ========================================================
+  // connectToDevTools({
+  //   host: HOST_URL,
+  //   resolveRNStyle: require('flattenStyle')
+  // })
+}
 
 // ========================================================
 // Store Instantiation
@@ -16,15 +31,11 @@ import { HOST_URL } from 'react-native-dotenv'
 const initialState = window.___INITIAL_STATE__
 const store = createStore(initialState)
 
-window.localStorage = store
-
 // ========================================================
-// Store Instantiation
+// Window the AsyncStorage
 // ========================================================
-// connectToDevTools({
-//   host: HOST_URL,
-//   resolveRNStyle: require('flattenStyle')
-// })
+window.AsyncStorage = AsyncStorage
+console.log('To clear storage : AsyncStorage.clear() then restart app')
 
 // ========================================================
 // Render Setup

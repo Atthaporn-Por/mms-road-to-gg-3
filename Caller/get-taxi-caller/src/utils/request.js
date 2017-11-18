@@ -1,15 +1,14 @@
 import defaults from 'superagent-defaults'
 import prefix from 'superagent-prefix'
 
-import { normalize, updateEntities } from 'store/entities'
+import { normalize, updateEntities } from 'stores/entities'
 
 import { BASE_API } from 'react-native-dotenv'
 
 const superagent = defaults()
 
 // Setup Request defaults
-superagent
-          .use(prefix(BASE_API))
+superagent.use(prefix(BASE_API))
           .on('error', error => console.warn(error))
           // .auth(process.env.CLIENT_ID, process.env.CLIENT_PASSWORD)
 

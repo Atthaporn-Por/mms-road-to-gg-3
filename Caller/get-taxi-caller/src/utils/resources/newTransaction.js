@@ -2,7 +2,7 @@ import { createAction } from 'redux-actions'
 import { push } from 'react-router-redux'
 import { merge } from 'lodash'
 
-import { setFlashMessage } from 'store/interface'
+import { setFlashMessage } from 'stores/interface'
 
 import request from '../request'
 
