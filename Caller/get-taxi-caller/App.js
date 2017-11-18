@@ -10,6 +10,21 @@ import createStore from 'store/configureStore'
 
 import { HOST_URL } from 'react-native-dotenv'
 
+if (__DEV__) {
+  // ========================================================
+  // Setup HTTP Debugging on DevTools
+  // ========================================================
+  global.XMLHttpRequest = global.originalXMLHttpRequest || global.XMLHttpRequest
+
+  // ========================================================
+  // Store Instantiation
+  // ========================================================
+  // connectToDevTools({
+  //   host: HOST_URL,
+  //   resolveRNStyle: require('flattenStyle')
+  // })
+}
+
 // ========================================================
 // Store Instantiation
 // ========================================================
@@ -21,14 +36,6 @@ const store = createStore(initialState)
 // ========================================================
 window.AsyncStorage = AsyncStorage
 console.log('To clear storage : AsyncStorage.clear()')
-
-// ========================================================
-// Store Instantiation
-// ========================================================
-// connectToDevTools({
-//   host: HOST_URL,
-//   resolveRNStyle: require('flattenStyle')
-// })
 
 // ========================================================
 // Render Setup

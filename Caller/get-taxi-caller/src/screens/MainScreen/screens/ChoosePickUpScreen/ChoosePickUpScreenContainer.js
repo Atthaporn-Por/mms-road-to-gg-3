@@ -3,15 +3,16 @@ import { Map } from 'immutable'
 
 import ChoosePickUpScreen from './ChoosePickUpScreen'
 
-import { updatePickUp } from 'screens/MainScreen/actions/mainMap'
+import { updatePickUp, getDirections } from 'screens/MainScreen/actions/mainMap'
 
 const mapStateToProps = (state, ownProps) => ({
   ...ownProps,
-  favorite_places: state.get('user', Map()).get('favorite_places')
+  favorite_places: state.get('authentication', Map()).get('favorite_places')
 })
 
 const mapDispatchToProps = {
-  updatePickUp
+  updatePickUp,
+  getDirections
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChoosePickUpScreen)

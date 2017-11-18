@@ -13,6 +13,7 @@ export class ReactComponent extends React.Component {
           predefinedPlaces={this.props.favorite_places.toJS()}
           onPress={(data, details = null) => {
             this.props.updatePickUp(details)
+            this.props.getDirections()
             this.props.navigation.goBack()
           }} />
       </PopupLayout>
@@ -24,7 +25,8 @@ ReactComponent.propTypes = {
   navigation: PropTypes.object,
   favorite_places: PropTypes.instanceOf(List),
 
-  updatePickUp: PropTypes.func
+  updatePickUp: PropTypes.func,
+  getDirections: PropTypes.func
 }
 
 ReactComponent.defaultProps = {

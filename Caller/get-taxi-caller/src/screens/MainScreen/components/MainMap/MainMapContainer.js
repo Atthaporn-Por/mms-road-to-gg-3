@@ -3,7 +3,7 @@ import { Map } from 'immutable'
 
 import MainMap from './MainMap'
 
-import { updateMainMap, updateMapRoute } from 'screens/MainScreen/actions/mainMap'
+import { updateMainMap, updateMapRoute, getDirections } from 'screens/MainScreen/actions/mainMap'
 
 const mapStateToProps = (state, ownProps) => ({
   ...ownProps,
@@ -12,7 +12,8 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = {
   updateMainMap,
-  updateMapRoute
+  updateMapRoute,
+  getDirections
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainMap)

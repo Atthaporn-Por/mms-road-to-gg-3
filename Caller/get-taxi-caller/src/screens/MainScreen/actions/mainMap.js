@@ -1,7 +1,10 @@
 import { createAction } from 'redux-actions'
 import { Map, List, fromJS } from 'immutable'
+import request from 'superagent'
 
-import request from 'utils/request'
+import Polyline from '@mapbox/polyline'
+
+// import request from 'utils/request'
 
 // ------------------------------------
 // Constants
@@ -25,10 +28,55 @@ export const updateMapRoute = createAction(UPDATE_MAP_ROUTE)
 // const getNearbyTaxi = () => {
 //   return (dispatch, state) => {
 //     return request.send({
-// 
+//
 //     })
 //   }
 // }
+
+export const getDirections = ({ pickUpLocation, dropOffLocation } = {}) => {
+  return (dispatch, getState) => {
+    const mainMap = getState().get('mainMap', Map())
+
+    pickUpLocation = pickUpLocation || mainMap.get('pick_up').get('geometry').get('location')
+    dropOffLocation = dropOffLocation || mainMap.get('drop_off').get('geometry').get('location')
+
+    if (!((pickUpLocation && pickUpLocation.size) || (dropOffLocation && dropOffLocation.size))) {
+      return
+    }
+
+    dispatch(getDirectionsApi({
+      pickUpLocation: `${pickUpLocation.get('latitude')},${pickUpLocation.get('longitude')}`,
+      dropOffLocation: `${dropOffLocation.get('latitude')},${dropOffLocation.get('longitude')}`
+    }))
+  }
+}
+
+export const getDirectionsApi = ({ pickUpLocation, dropOffLocation }) => {
+  return (dispatch, getState) => {
+    return request.get('https://maps.googleapis.com/maps/api/directions/json')
+      .query({
+        origin: pickUpLocation,
+        destination: dropOffLocation
+      })
+      .on('error', error => console.warn(error))
+      .then(res => {
+        console.log('res: ', res)
+        return res.body
+      })
+      .then(res => {
+        let points = Polyline.decode(res.routes[0].overview_polyline.points)
+        let coords = points.map((point, index) => {
+          return {
+            latitude : point[0],
+            longitude : point[1]
+          }
+        })
+
+        dispatch(updateMapRoute(coords))
+        console.log(coords)
+      })
+  }
+}
 
 // ------------------------------------
 // Action Handlers

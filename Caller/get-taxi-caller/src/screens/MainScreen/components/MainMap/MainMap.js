@@ -29,22 +29,6 @@ export class MainMap extends React.Component {
     dropOffLatLong: { latitude: 13.7563, longitude: 100.5018 }
   }
 
-  componentWillReceiveProps (nextProps) {
-    if (!isEqual(this.props.mainMap, nextProps.mainMap)) {
-      const mainMap = nextProps.mainMap
-      if (mainMap.get('pick_up').size && mainMap.get('drop_off').size) {
-        console.log('ok')
-        const pickUpLocation = mainMap.get('pick_up').get('geometry').get('location')
-        const dropOffLocation = mainMap.get('drop_off').get('geometry').get('location')
-        this.getDirections(
-          `${pickUpLocation.get('latitude')},${pickUpLocation.get('longitude')}`,
-          `${dropOffLocation.get('latitude')},${dropOffLocation.get('longitude')}`
-        )
-      }
-      // Location.watchPositionAsync(GEOLOCATION_OPTIONS, this.locationChanged)
-    }
-  }
-
   locationChanged = (location) => {
     const region = {
       latitude: location.coords.latitude,
@@ -57,27 +41,6 @@ export class MainMap extends React.Component {
 
   _handleMapRegionChange = mapRegion => {
     this.setState({ mapRegion })
-  }
-
-  async getDirections (startLoc, destinationLoc) {
-    try {
-      let resp = await fetch(`https://maps.googleapis.com/maps/api/directions/json?origin=${ startLoc }&destination=${ destinationLoc }`)
-      let respJson = await resp.json()
-      let points = Polyline.decode(respJson.routes[0].overview_polyline.points)
-      let coords = points.map((point, index) => {
-        return {
-          latitude : point[0],
-          longitude : point[1]
-        }
-      })
-
-      this.props.updateMapRoute(coords)
-      console.log(coords);
-      return coords
-    } catch (error) {
-      alert(error)
-      return error
-    }
   }
 
   getPickUpPin () {
@@ -171,7 +134,9 @@ const styles = StyleSheet.create({
 MainMap.propTypes = {
   style: PropTypes.number,
   children: PropTypes.node,
-  mainMap: PropTypes.instanceOf(Map)
+  mainMap: PropTypes.instanceOf(Map),
+
+  getDirections: PropTypes.func
 }
 
 MainMap.defaultProps = {

@@ -1,8 +1,9 @@
 
 import { AsyncStorage } from 'react-native'
 import { createStore, applyMiddleware, compose } from 'redux'
-import thunk from 'redux-thunk'
 import { persistStore, autoRehydrate } from 'redux-persist-immutable'
+import thunk from 'redux-thunk'
+import promiseMiddleware from 'redux-promise'
 import Immutable from 'immutable'
 
 import reducer from './reducers'
@@ -10,7 +11,8 @@ import { updateRehydrated } from './persist'
 
 export default function configureStore (initialState = Immutable.Map(), onCompletion: ()=>void):any {
   const middleware = [
-    thunk
+    thunk,
+    promiseMiddleware
   ]
 
   const composeEnhancers =

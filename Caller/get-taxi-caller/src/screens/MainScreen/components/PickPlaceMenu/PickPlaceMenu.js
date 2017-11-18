@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Map } from 'immutable'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet } from 'react-native'
+
 import {
-  Container, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right,
-  Header, Form, Item, Input, Label
+  Container, Content, Button, Form, Item, Input, Label
 } from 'native-base'
 
 export class PickPlaceMenu extends React.Component {
