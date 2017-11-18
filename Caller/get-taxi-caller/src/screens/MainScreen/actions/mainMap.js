@@ -41,16 +41,16 @@ export const getNearbyTaxi = ({ latitude, longitude } = {}) => {
       return
     }
 
-    return request.get('/searchtaxi')
-      .query(location())
-      .end((err, res) => {
-        if (err) {
-          console.error(err)
-          return
-        }
-        console.log(res)
-        // dispatch(updateTaxis(res)) //Upload taxis data to redux stores
-      })
+    // return request.get('/searchtaxi')
+    //   .query(location())
+    //   .end((err, res) => {
+    //     if (err) {
+    //       console.error(err)
+    //       return
+    //     }
+    //     console.log(res)
+    //     // dispatch(updateTaxis(res)) //Upload taxis data to redux stores
+    //   })
   }
 }
 
@@ -120,7 +120,7 @@ const ACTION_HANDLERS = {
 // Reducer
 // ------------------------------------
 const initialState = fromJS({
-  mapRegion: { latitude: 13.7563, longitude: 100.5018, latitudeDelta: 0.1, longitudeDelta: 0.05 },
+  mapRegion: { latitude: 13.7563, longitude: 100.5018, latitudeDelta: 0.0922, longitudeDelta: 0.0421 },
   map_route: {},
   taxis: {}
 })
