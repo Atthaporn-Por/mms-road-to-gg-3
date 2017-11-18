@@ -41,16 +41,16 @@ export const getNearbyTaxi = ({ latitude, longitude } = {}) => {
       return
     }
 
-    return request.get('/searchtaxi')
-      .query(location())
-      .end((err, res) => {
-        if (err) {
-          console.error(err)
-          return
-        }
-        console.log(res)
-        // dispatch(updateTaxis(res)) //Upload taxis data to redux stores
-      })
+    // return request.get('/searchtaxi')
+    //   .query(location())
+    //   .end((err, res) => {
+    //     if (err) {
+    //       console.error(err)
+    //       return
+    //     }
+    //     console.log(res)
+    //     // dispatch(updateTaxis(res)) //Upload taxis data to redux stores
+    //   })
   }
 }
 
