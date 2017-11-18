@@ -19,7 +19,7 @@ const GEOLOCATION_OPTIONS = { enableHighAccuracy: true, timeout: 20000, maximumA
 
 let { width, height } = Dimensions.get('window')
 const ASPECT_RATIO = width / height
-const LATITUDE_DELTA = 60 //Very high zoom level
+const LATITUDE_DELTA = 0.05 // Very high zoom level
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO
 
 export class MainMap extends React.Component {
@@ -37,7 +37,8 @@ export class MainMap extends React.Component {
   }
 
   state = {
-    mapRegion: { latitude: 13.756300, longitude: 100.501800, latitudeDelta: LATITUDE_DELTA, longitudeDelta: LONGITUDE_DELTA },
+    mapRegion: { latitude: 13.756300, longitude: 100.501800, latitudeDelta:  LATITUDE_DELTA, longitudeDelta:  LONGITUDE_DELTA},
+    //mapRegion: { latitude: 63.756300, longitude: 60.501800, latitudeDelta: 0.04, longitudeDelta: 0.04 },
     getNearbyTaxiInterval: null
   }
 
