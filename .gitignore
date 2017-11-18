@@ -2,6 +2,7 @@
 node_modules/
 dist/
 package-lock.json
+package-lock.json
 
 # testing
 coverage/
@@ -19,7 +20,7 @@ Thumbs.db
 npm-debug.log
 compilation-stats.json
 
-# server
+# python server
 
 # for test class
 test.py

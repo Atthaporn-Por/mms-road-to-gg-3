@@ -1,0 +1,24 @@
+{
+  "expo": {
+    "name": "get-taxi-caller",
+    "description": "Get Taxi Caller App",
+    "slug": "get-taxi-caller",
+    "privacy": "public",
+    "sdkVersion": "22.0.0",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "primaryColor": "#cccccc",
+    "icon": "./src/assets/icons/gettaxi_icon.png",
+    "splash": {
+      "image": "./src/assets/images/splash/loading-0.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "packagerOpts": {
+      "assetExts": ["ttf"]
+    },
+    "ios": {
+      "supportsTablet": true
+    }
+  }
+}

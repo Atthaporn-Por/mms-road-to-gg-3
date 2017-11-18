@@ -7,3 +7,9 @@ The following README.md will be used to describe conventions specific to the `Ta
 2. you will see the new tab such as Board and Report
 3. click to Report 
 4. Click to Burndown
+
+# How to run server
+1. install PyMySQL `pip install PyMySQL`
+2. runserver `python server.py` 
+
+   example : `http://localhost:5000/caller/searchtaxi?latitude=30.741566&longitude=178.521730`
