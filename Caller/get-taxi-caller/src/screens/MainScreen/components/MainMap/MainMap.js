@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Map } from 'immutable'
+import { Map, List } from 'immutable'
 import { isEqual } from 'lodash'
 
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -24,12 +24,8 @@ const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO
 
 export class MainMap extends React.Component {
   componentDidMount () {
-    this.props.getNearbyTaxi()
-    this.setState({
-      getNearbyTaxiInterval: setInterval(() => {
-        this.props.getNearbyTaxi()
-      }, 10000)
-    })
+    this.getNearbyTaxi()
+    this.setCurrentLocation()
   }
 
   componentWillUnmount () {
@@ -37,23 +33,37 @@ export class MainMap extends React.Component {
   }
 
   state = {
-    mapRegion: { latitude: 13.756300, longitude: 100.501800, latitudeDelta:  LATITUDE_DELTA, longitudeDelta:  LONGITUDE_DELTA},
-    //mapRegion: { latitude: 63.756300, longitude: 60.501800, latitudeDelta: 0.04, longitudeDelta: 0.04 },
+    regionSet: false,
     getNearbyTaxiInterval: null
   }
 
-  locationChanged = (location) => {
+  setCurrentLocation () {
+    Location.watchPositionAsync(GEOLOCATION_OPTIONS, this._handleCurrentLocationChange)
+  }
+
+  getNearbyTaxi () {
+    this.props.getNearbyTaxi()
+    this.setState({
+      getNearbyTaxiInterval: setInterval(() => {
+        this.props.getNearbyTaxi()
+      }, 30000)
+    })
+  }
+
+  _handleCurrentLocationChange = (location) => {
     const region = {
       latitude: location.coords.latitude,
       longitude: location.coords.longitude,
       latitudeDelta: LATITUDE_DELTA,
       longitudeDelta: LONGITUDE_DELTA
     }
-    this.setState({ location, region })
+    this.props.updateCurrentLocation(region)
   }
 
-  _handleMapRegionChange = mapRegion => {
-    this.setState({ mapRegion })
+  _handleCurrentRegionChange = mapRegion => {
+    if (this.state.regionSet) {
+      this.props.updateCurrentRegion(mapRegion)
+    }
   }
 
   getPickUpPin () {
@@ -97,8 +107,7 @@ export class MainMap extends React.Component {
   }
 
   getMapRoute () {
-    const { mainMap } = this.props
-    const mapRoute = mainMap.get('map_route')
+    const { mapRoute } = this.props
 
     return (
       mapRoute && mapRoute.size &&
@@ -114,8 +123,9 @@ export class MainMap extends React.Component {
       <View style={[styles.container, this.props.style]}>
         <MapView showsUserLocation
           style={styles.map}
-          region={this.state.mapRegion}
-          onRegionChange={this._handleMapRegionChange}>
+          onMapReady={() => { this.setState({ regionSet: true }) }}
+          region={this.props.currentRegion.toJS()}
+          onRegionChange={this._handleCurrentRegionChange}>
           {this.getPickUpPin()}
           {this.getDropOffPin()}
           {this.getMapRoute()}
@@ -147,15 +157,21 @@ const styles = StyleSheet.create({
 MainMap.propTypes = {
   style: PropTypes.number,
   children: PropTypes.node,
-  mainMap: PropTypes.instanceOf(Map),
+  mapRoute: PropTypes.instanceOf(List),
+  currentRegion: PropTypes.instanceOf(Map),
+  currentLocation: PropTypes.instanceOf(Map),
   newTransaction: PropTypes.instanceOf(Map),
 
-  getNearbyTaxi: PropTypes.func
+  getNearbyTaxi: PropTypes.func,
+  updateCurrentRegion: PropTypes.func,
+  updateCurrentLocation: PropTypes.func
 }
 
 MainMap.defaultProps = {
-  mainMap: Map(),
-  newTransaction: Map()
+  mapRoute: List(),
+  newTransaction: Map(),
+  currentRegion: Map(),
+  currentLocation: Map()
 }
 
 export default MainMap
