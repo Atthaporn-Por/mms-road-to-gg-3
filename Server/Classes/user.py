@@ -26,7 +26,17 @@ class User:
         self.firstName = user.firstName
         self.lastName = user.lastName
         self.address = user.address
-        return -1
+
+        new_user_profile = {
+            'facebookID': self.facebookID,
+            'phoneNumber': self.phoneNumber,
+            'dataOfBirth': self.dataOfBirth,
+            'firstName': self.firstName,
+            'lastName': self.lastName,
+            'address': self.address
+        }
+
+        return {'user' : new_user_profile}
 
     def sendRegEmail(self, email, password):
         return -1
