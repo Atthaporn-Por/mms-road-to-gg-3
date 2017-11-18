@@ -1,7 +1,7 @@
 import defaults from 'superagent-defaults'
 import prefix from 'superagent-prefix'
 
-import { normalize, updateEntities } from 'store/entities'
+import { normalize, updateEntities } from 'stores/entities'
 
 import { BASE_API } from 'react-native-dotenv'
 

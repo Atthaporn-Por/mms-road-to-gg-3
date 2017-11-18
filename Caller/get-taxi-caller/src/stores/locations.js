@@ -2,7 +2,7 @@ import { createAction } from 'redux-actions'
 import { List, fromJS } from 'immutable'
 
 import request from 'utils/request'
-import { updateEntity, provinceSchema, districtSchema, subDistrictSchema } from 'store/entities'
+import { updateEntity, provinceSchema, districtSchema, subDistrictSchema } from 'stores/entities'
 
 // ------------------------------------
 // Constants

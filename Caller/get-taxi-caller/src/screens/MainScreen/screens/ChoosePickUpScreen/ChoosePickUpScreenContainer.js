@@ -3,7 +3,8 @@ import { Map } from 'immutable'
 
 import ChoosePickUpScreen from './ChoosePickUpScreen'
 
-import { updatePickUp, getDirections } from 'screens/MainScreen/actions/mainMap'
+import { getDirections } from 'screens/MainScreen/actions/mainMap'
+import { updatePickUp } from 'stores/newTransaction'
 
 const mapStateToProps = (state, ownProps) => ({
   ...ownProps,

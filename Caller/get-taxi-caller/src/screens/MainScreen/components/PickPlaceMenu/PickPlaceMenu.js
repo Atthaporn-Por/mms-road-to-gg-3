@@ -9,9 +9,9 @@ import {
 
 export class PickPlaceMenu extends React.Component {
   render () {
-    const { mainMap, navigation } = this.props
-    const pickUp = mainMap.get('pick_up')
-    const dropOff = mainMap.get('drop_off')
+    const { newTransaction, navigation } = this.props
+    const pickUp = newTransaction.get('pick_up')
+    const dropOff = newTransaction.get('drop_off')
 
     return (
       <Container style={[styles.container, this.props.style]}>
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
 PickPlaceMenu.propTypes = {
   style: PropTypes.number,
   navigation: PropTypes.object,
-  mainMap: PropTypes.instanceOf(Map)
+  newTransaction: PropTypes.instanceOf(Map)
 }
 
 PickPlaceMenu.defaultProps = {

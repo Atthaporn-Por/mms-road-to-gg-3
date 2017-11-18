@@ -13,8 +13,6 @@ import { GOOGLE_MAP_API_KEY } from 'react-native-dotenv'
 // ------------------------------------
 export const UPDATE_MAIN_MAP = 'mainMap/UPDATE_MAIN_MAP'
 export const CLEAR = 'mainMap/CLEAR'
-export const UPDATE_PICK_UP = 'mainMap/UPDATE_PICK_UP'
-export const UPDATE_DROP_OFF = 'mainMap/UPDATE_DROP_OFF'
 export const UPDATE_MAP_ROUTE = 'mainMap/UPDATE_MAP_ROUTE'
 
 // ------------------------------------
@@ -23,15 +21,13 @@ export const UPDATE_MAP_ROUTE = 'mainMap/UPDATE_MAP_ROUTE'
 
 export const updateMainMap = createAction(UPDATE_MAIN_MAP)
 export const clearMainMap = createAction(CLEAR)
-export const updatePickUp = createAction(UPDATE_PICK_UP)
-export const updateDropOff = createAction(UPDATE_DROP_OFF)
 export const updateMapRoute = createAction(UPDATE_MAP_ROUTE)
 
 export const getNearbyTaxi = ({ latitude, longitude } = {}) => {
   return (dispatch, getState) => {
     const allPosibleLocation = [
       () => ({ latitude, longitude }),
-      () => (getState().get('mainMap').get('pick_up', Map()).get('geometry', Map()).get('location', Map()).toJS()),
+      () => (getState().get('newTransaction').get('pick_up', Map()).get('geometry', Map()).get('location', Map()).toJS()),
       () => (getState().get('mainMap').get('mapRegion', Map()).toJS())
     ]
 
@@ -56,10 +52,10 @@ export const getNearbyTaxi = ({ latitude, longitude } = {}) => {
 
 export const getDirections = ({ pickUpLocation, dropOffLocation } = {}) => {
   return (dispatch, getState) => {
-    const mainMap = getState().get('mainMap', Map())
+    const newTransaction = getState().get('newTransaction', Map())
 
-    pickUpLocation = pickUpLocation || mainMap.get('pick_up', Map()).get('geometry', Map()).get('location', Map())
-    dropOffLocation = dropOffLocation || mainMap.get('drop_off', Map()).get('geometry', Map()).get('location', Map())
+    pickUpLocation = pickUpLocation || newTransaction.get('pick_up', Map()).get('geometry', Map()).get('location', Map())
+    dropOffLocation = dropOffLocation || newTransaction.get('drop_off', Map()).get('geometry', Map()).get('location', Map())
 
     if (pickUpLocation.size && dropOffLocation.size) {
       dispatch(getDirectionsApi({
@@ -101,33 +97,12 @@ export const getDirectionsApi = ({ pickUpLocation, dropOffLocation } = {}) => {
 // ------------------------------------
 // Action Handlers
 // ------------------------------------
-const getLatLngKey = (location = Map()) => {
-  return fromJS({
-    latitude: location.get('lat'),
-    longitude: location.get('lng')
-  })
-}
-
-const changeLatLngKey = (details) => (
-  details.updateIn(['geometry', 'location'], location => {
-    return getLatLngKey(location)
-  })
-)
 
 const ACTION_HANDLERS = {
   [UPDATE_MAIN_MAP]: (state, { payload }) => {
     return state.mergeDeep({
       payload
     })
-  },
-  [CLEAR]: (state, { payload }) => {
-    return initialState
-  },
-  [UPDATE_PICK_UP]: (state, { payload }) => {
-    return state.set('pick_up', changeLatLngKey(fromJS(payload)))
-  },
-  [UPDATE_DROP_OFF]: (state, { payload }) => {
-    return state.set('drop_off', changeLatLngKey(fromJS(payload)))
   },
   [UPDATE_MAP_ROUTE]: (state, { payload }) => {
     return state.set('map_route', fromJS(payload))
@@ -139,15 +114,7 @@ const ACTION_HANDLERS = {
 // ------------------------------------
 const initialState = fromJS({
   mapRegion: { latitude: 13.7563, longitude: 100.5018, latitudeDelta: 0.1, longitudeDelta: 0.05 },
-  pick_up: {
-    // geometry: { location: { lat: 13.8563, lng: 100.6018 } }
-  },
-  drop_off: {
-    // geometry: { location: { lat: 13.7563, lng: 100.5018 } }
-  },
-  map_route: {
-
-  }
+  map_route: { }
 })
 
 export default (state = initialState, action) => {

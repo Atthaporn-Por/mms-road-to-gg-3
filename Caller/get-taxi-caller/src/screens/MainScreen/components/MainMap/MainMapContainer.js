@@ -7,7 +7,8 @@ import { updateMainMap, updateMapRoute, getDirections, getNearbyTaxi } from 'scr
 
 const mapStateToProps = (state, ownProps) => ({
   ...ownProps,
-  mainMap: state.get('mainMap')
+  mainMap: state.get('mainMap'),
+  newTransaction: state.get('newTransaction')
 })
 
 const mapDispatchToProps = {

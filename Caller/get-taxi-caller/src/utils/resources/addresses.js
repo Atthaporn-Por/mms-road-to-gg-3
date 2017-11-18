@@ -5,7 +5,7 @@ import request from '../request'
 
 import constants from './constants'
 
-import { provinceSchema, districtSchema, addressSchema } from 'store/entities'
+import { provinceSchema, districtSchema, addressSchema } from 'stores/entities'
 
 export default (schema) => {
   const CONSTANTS = constants(schema)

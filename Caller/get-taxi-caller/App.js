@@ -6,7 +6,7 @@ import { AppLoading, Asset, Font } from 'expo'
 import { Ionicons, FontAwesome } from '@expo/vector-icons'
 // import RootNavigation from './navigation/MainDrawerNavigator'
 import RootNavigation from 'navigation/RootNavigation'
-import createStore from 'store/configureStore'
+import createStore from 'stores/configureStore'
 
 import { HOST_URL } from 'react-native-dotenv'
 

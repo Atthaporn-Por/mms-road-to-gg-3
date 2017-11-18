@@ -56,13 +56,13 @@ export class MainMap extends React.Component {
   }
 
   getPickUpPin () {
-    const { mainMap } = this.props
+    const { newTransaction } = this.props
 
-    if (mainMap.get('pick_up', Map()).size === 0) {
+    if (newTransaction.get('pick_up', Map()).size === 0) {
       return
     }
 
-    const pickUpLatLong = mainMap.getIn(['pick_up', 'geometry', 'location'])
+    const pickUpLatLong = newTransaction.getIn(['pick_up', 'geometry', 'location'])
 
     return (
       pickUpLatLong && pickUpLatLong.size &&
@@ -76,13 +76,13 @@ export class MainMap extends React.Component {
   }
 
   getDropOffPin () {
-    const { mainMap } = this.props
+    const { newTransaction } = this.props
 
-    if (mainMap.get('drop_off', Map()).size === 0) {
+    if (newTransaction.get('drop_off', Map()).size === 0) {
       return
     }
 
-    const dropOffLatLong = mainMap.getIn(['drop_off', 'geometry', 'location'])
+    const dropOffLatLong = newTransaction.getIn(['drop_off', 'geometry', 'location'])
 
     return (
       dropOffLatLong && dropOffLatLong.size &&
@@ -147,12 +147,14 @@ MainMap.propTypes = {
   style: PropTypes.number,
   children: PropTypes.node,
   mainMap: PropTypes.instanceOf(Map),
+  newTransaction: PropTypes.instanceOf(Map),
 
   getNearbyTaxi: PropTypes.func
 }
 
 MainMap.defaultProps = {
-  mainMap: Map()
+  mainMap: Map(),
+  newTransaction: Map()
 }
 
 export default MainMap

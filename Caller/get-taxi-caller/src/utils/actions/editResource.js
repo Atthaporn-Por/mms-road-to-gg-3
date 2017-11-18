@@ -3,7 +3,7 @@ import { push } from 'react-router-redux'
 import { merge } from 'lodash'
 import pluralize from 'pluralize'
 
-import { setFlashMessage } from 'store/interface'
+import { setFlashMessage } from 'stores/interface'
 
 import request from '../request'
 

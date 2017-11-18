@@ -3,7 +3,8 @@ import { Map } from 'immutable'
 
 import ChooseDropOffScreen from './ChooseDropOffScreen'
 
-import { updateDropOff, getDirections } from 'screens/MainScreen/actions/mainMap'
+import { getDirections } from 'screens/MainScreen/actions/mainMap'
+import { updateDropOff } from 'stores/newTransaction'
 
 const mapStateToProps = (state, ownProps) => ({
   ...ownProps,

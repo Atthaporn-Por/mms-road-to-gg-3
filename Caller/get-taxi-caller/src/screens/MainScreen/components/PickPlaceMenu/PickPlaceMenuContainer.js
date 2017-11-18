@@ -1,11 +1,10 @@
 import { connect } from 'react-redux'
-import { Map } from 'immutable'
 
 import PickPlaceMenu from './PickPlaceMenu'
 
 const mapStateToProps = (state, ownProps) => ({
   ...ownProps,
-  mainMap: state.get('mainMap')
+  newTransaction: state.get('newTransaction')
 })
 
 const mapDispatchToProps = {
