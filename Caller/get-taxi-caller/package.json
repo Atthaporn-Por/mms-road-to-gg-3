@@ -4,9 +4,10 @@
   "scripts": {
     "exp": "exp",
     "test": "node ./node_modules/jest/bin/jest.js --watch",
-    "debug": "rndebugger-open --expo",
+    "postinstall": "rndebugger-open --expo",
     "start": "exp start",
-    "dev": "exp start --dev --exp --lan"
+    "dev": "exp start --dev --exp --lan",
+    "dev-debug": "rndebugger-open --expo & exp start --dev --exp --lan"
   },
   "jest": {
     "preset": "jest-expo"
