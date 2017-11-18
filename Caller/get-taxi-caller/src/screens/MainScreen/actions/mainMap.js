@@ -12,16 +12,16 @@ import { GOOGLE_MAP_API_KEY } from 'react-native-dotenv'
 // Constants
 // ------------------------------------
 export const UPDATE_MAIN_MAP = 'mainMap/UPDATE_MAIN_MAP'
-export const CLEAR = 'mainMap/CLEAR'
 export const UPDATE_MAP_ROUTE = 'mainMap/UPDATE_MAP_ROUTE'
+export const UPDATE_TAXIS = 'mainMap/UPDATE_TAXIS'
 
 // ------------------------------------
 // Actions
 // ------------------------------------
 
 export const updateMainMap = createAction(UPDATE_MAIN_MAP)
-export const clearMainMap = createAction(CLEAR)
 export const updateMapRoute = createAction(UPDATE_MAP_ROUTE)
+export const updateTaxis = createAction(UPDATE_TAXIS)
 
 export const getNearbyTaxi = ({ latitude, longitude } = {}) => {
   return (dispatch, getState) => {
@@ -41,11 +41,15 @@ export const getNearbyTaxi = ({ latitude, longitude } = {}) => {
       return
     }
 
-    // return superagent.get('localhost:5000/searchtaxi')
     return request.get('/searchtaxi')
       .query(location())
-      .end(res => {
+      .end((err, res) => {
+        if (err) {
+          console.error(err)
+          return
+        }
         console.log(res)
+        // dispatch(updateTaxis(res)) //Upload taxis data to redux stores
       })
   }
 }
@@ -106,6 +110,9 @@ const ACTION_HANDLERS = {
   },
   [UPDATE_MAP_ROUTE]: (state, { payload }) => {
     return state.set('map_route', fromJS(payload))
+  },
+  [UPDATE_TAXIS]: (state, { payload }) => {
+    return state.set('taxis', fromJS(payload))
   }
 }
 
@@ -114,7 +121,8 @@ const ACTION_HANDLERS = {
 // ------------------------------------
 const initialState = fromJS({
   mapRegion: { latitude: 13.7563, longitude: 100.5018, latitudeDelta: 0.1, longitudeDelta: 0.05 },
-  map_route: { }
+  map_route: {},
+  taxis: {}
 })
 
 export default (state = initialState, action) => {
