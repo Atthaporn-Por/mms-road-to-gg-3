@@ -6,8 +6,8 @@ import request from 'utils/request'
 // ------------------------------------
 // Constants
 // ------------------------------------
-export const UPDATE_PICK_UP = 'mainMap/UPDATE_PICK_UP'
-export const UPDATE_DROP_OFF = 'mainMap/UPDATE_DROP_OFF'
+export const UPDATE_PICK_UP = 'newTransaction/UPDATE_PICK_UP'
+export const UPDATE_DROP_OFF = 'newTransaction/UPDATE_DROP_OFF'
 
 // ------------------------------------
 // Actions
