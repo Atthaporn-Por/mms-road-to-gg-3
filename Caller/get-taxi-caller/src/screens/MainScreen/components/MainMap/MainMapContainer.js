@@ -3,19 +3,28 @@ import { Map } from 'immutable'
 
 import MainMap from './MainMap'
 
-import { updateMainMap, updateMapRoute, getDirections, getNearbyTaxi } from 'screens/MainScreen/actions/mainMap'
+import {
+  updateMapRoute, updateCurrentRegion, updateCurrentLocation,
+  getDirections, getNearbyTaxi
+} from 'screens/MainScreen/actions/mainMap'
 
-const mapStateToProps = (state, ownProps) => ({
-  ...ownProps,
-  mainMap: state.get('mainMap'),
-  newTransaction: state.get('newTransaction')
-})
+const mapStateToProps = (state, ownProps) => {
+  const mainMap = state.get('mainMap', Map())
+  return {
+    ...ownProps,
+    newTransaction: state.get('newTransaction'),
+    mapRoute: mainMap.get('map_route'),
+    currentRegion: mainMap.get('currentRegion'),
+    currentLocation: mainMap.get('currentLocation')
+  }
+}
 
 const mapDispatchToProps = {
-  updateMainMap,
   updateMapRoute,
   getDirections,
-  getNearbyTaxi
+  getNearbyTaxi,
+  updateCurrentRegion,
+  updateCurrentLocation
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainMap)
