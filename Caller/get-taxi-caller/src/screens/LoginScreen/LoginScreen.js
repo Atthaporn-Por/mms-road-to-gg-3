@@ -7,6 +7,7 @@ import {
   Left, Body, Right, Content, Label, Item,
   Text, Button, InputGroup, Input
 } from 'native-base'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import { Col, Row, Grid } from 'react-native-easy-grid'
 
 import MainScreenLayout from 'layouts/MainScreenLayout'
@@ -22,7 +23,13 @@ export class LoginScreen extends React.Component {
           <Item rounded style={styles.container}>
             <Input placeholder='Password' secureTextEntry={true} />
           </Item>
-          <Button primary style={styles.p} ><Text> Log-in </Text></Button>
+          <View style={styles.con}>
+            <Button primary style={styles.loginButton}><Text> Log-in </Text></Button>
+            <Button transparent style={styles.loginButton}>
+              <Icon name='facebook-official'
+                style={styles.fbIcon} />
+            </Button>
+          </View>
         </Content>
       </MainScreenLayout>
     )
@@ -33,13 +40,23 @@ const styles = StyleSheet.create({
   container: {
     margin: '2.5%'
   },
-  button: {
-    width: '100px',
-    height: '100px'
+  con: {
+    flex: 1,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    marginTop: 10
+  },
+  loginButton: {
+    marginHorizontal: 10
+  },
+  fbIcon: {
+    fontSize: 50,
+    color: '#3b5998'
   },
   p: {
-    marginLeft: '30%',
-    marginRight: '30%'
+    alignItems: 'center',
+    flexDirection: 'column'
   }
 })
 
