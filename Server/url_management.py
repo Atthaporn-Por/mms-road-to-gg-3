@@ -26,17 +26,26 @@ def url_management(path, querys):
 
 def user(path_list, querys_dict):
     if path_list[2] == 'login':
-        print(querys_dict)
         try:
-            return User().login(querys_dict['id'],querys_dict['password'])
+            if 'direction' in querys_dict:
+                return User().login(querys_dict['id'],querys_dict['password'],querys_dict['latitude'],querys_dict['longitude'],querys_dict['status'],querys_dict['direction'])
+            else:
+                return User().login(querys_dict['id'],querys_dict['password'],querys_dict['latitude'],querys_dict['longitude'],querys_dict['status'])
         except:
-            return {'error' : 'inValid id or password'}
+            return {'error' : 'inValid syntax id or password'}
+    elif path_list[2] == 'logout':
+        try:
+            return User().logout(querys_dict['id'])
+        except Error as error:
+            print(error)
+            return {'error' : 'inValid syntax id'}
+
 
 def caller(path_list, querys_dict):
     if path_list[2] == 'searchtaxi':
         try:
             return Caller().searchTaxi(float(querys_dict['latitude']), float(querys_dict['longitude']))
         except:
-            return {'error' : 'inValid Latitude and Longitude'}
+            return {'error' : 'inValid syntax Latitude and Longitude'}
     
     
