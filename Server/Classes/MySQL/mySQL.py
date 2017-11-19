@@ -26,8 +26,7 @@ class MySQL:
         elif dict_data != {}:
             self.cursor.execute(querys,dict_data)
         else:
-            return 'error : No data to insert.'
-        return 'Successful Inserted'
+            self.self.cursor.execute(querys)
 
         
 
