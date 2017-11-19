@@ -168,7 +168,10 @@ const styles = StyleSheet.create({
 })
 
 MainMap.propTypes = {
-  style: PropTypes.number,
+  style: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.array
+  ]),
   children: PropTypes.node,
   mapRoute: PropTypes.instanceOf(List),
   currentRegion: PropTypes.instanceOf(Map),
