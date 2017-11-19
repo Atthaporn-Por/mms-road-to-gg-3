@@ -4,13 +4,14 @@ import { StackNavigator } from 'react-navigation'
 import { Root } from 'native-base'
 
 // import MainTabNavigator from './MainTabNavigator'
+// import MainDrawerNavigator from './MainDrawerNavigator'
 import MainDrawerNavigator from './MainDrawerNavigator'
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync'
 
 const RootStackNavigator = StackNavigator(
   {
     Main: {
-      // screen: MainTabNavigator
+      // .screen: MainTabNavigator
       screen: MainDrawerNavigator
     }
   },
