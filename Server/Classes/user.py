@@ -18,6 +18,7 @@ class User:
         try:
             list_of_results = mysql.query('SELECT password FROM gettaxi.member WHERE phone = %s', phoneNumber)
         except Error as error:
+            mysql.close()
             return {'error' : error}
 
         if password == list_of_results[0][0]:
@@ -26,11 +27,13 @@ class User:
                 try:
                     mysql.insert('INSERT INTO gettaxi.subcriber_driver (phone, real_time_lat_location, real_time_long_location, direction, status) VALUES (%s, %s, %s, %s, %s)',(phoneNumber,real_time_lat_location,real_time_long_location,direction,status))
                 except Error as error:
+                    mysql.close()
                     return {'error' : error}
             elif type == 'user':
                 try:
                     mysql.insert('INSERT INTO gettaxi.subcriber_user (phone, real_time_lat_location, real_time_long_location, status) VALUES (%s, %s, %s, %s)',(phoneNumber,real_time_lat_location,real_time_long_location,status))
                 except Error as error:
+                    mysql.close()
                     return {'error' : error}
 
             user_profile = {
@@ -47,6 +50,7 @@ class User:
             mysql.close()
             return {'user' : user_profile}
         else:
+            mysql.close()
             return {'error' : 'inValid id or password'}
 
     def logout(self, phoneNumber):
@@ -61,6 +65,7 @@ class User:
         try:
             mysql.delete(querys, phoneNumber)
         except Error as error:
+            mysql.close()
             return {'error' : error}
         mysql.close()
         return {'message' : 'logout sucessful.'}
