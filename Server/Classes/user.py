@@ -19,8 +19,9 @@ class User:
             list_of_results = mysql.query('SELECT password FROM gettaxi.member WHERE phone = %s', phoneNumber)
         except Error as error:
             return {'error' : error}
+        (user_password,) = list_of_results[0]
 
-        if password == list_of_results[0][0]:
+        if password == user_password:
             (phone, type, password, date_of_birth, facebook_id, email, address, firstname, lastname) = (mysql.query('SELECT * FROM gettaxi.member WHERE phone = %s', phoneNumber))[0]
             if type == 'driver':
                 try:
@@ -29,6 +30,7 @@ class User:
                     return {'error' : error}
             elif type == 'user':
                 try:
+                    print(status)
                     mysql.insert('INSERT INTO gettaxi.subcriber_user (phone, real_time_lat_location, real_time_long_location, status) VALUES (%s, %s, %s, %s)',(phoneNumber,real_time_lat_location,real_time_long_location,status))
                 except Error as error:
                     return {'error' : error}
