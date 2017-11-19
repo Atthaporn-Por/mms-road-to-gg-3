@@ -11,11 +11,9 @@ class MySQL:
         self.cnx = pymysql.connect(host=self.host, port=self.port, user=self.username, passwd=self.password, db=self.database)
         self.cursor = self.cnx.cursor()
 
-    def query(self,querys,formats=''):
+    def query(self,querys,formats=()):
         return_list = []
-        if formats != '':
-            querys = querys % formats
-        self.cursor.execute(querys)
+        self.cursor.execute(querys,formats)
         for data in self.cursor:
             return_list.append(data)
         return return_list
@@ -27,9 +25,11 @@ class MySQL:
             self.cursor.execute(querys,dict_data)
         else:
             self.self.cursor.execute(querys)
+        self.cnx.commit()
 
-        
-
+    def delete(self,querys,formats=()):
+        self.cursor.execute(querys,formats)
+        self.cnx.commit()
 
     def close(self):
         self.cursor.close()
