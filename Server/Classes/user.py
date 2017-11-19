@@ -13,16 +13,30 @@ class User:
         self.address = address
         self.user_position = Position()
 
-    def login(self, phoneNumber, password):
+    def login(self, phoneNumber, password, real_time_lat_location, real_time_long_location, status, direction=''):
         mysql = MySQL()
-        list_of_results = mysql.query('SELECT password FROM gettaxi.member WHERE phone = %s', phoneNumber)
-        print(list_of_results)
+        try:
+            list_of_results = mysql.query('SELECT password FROM gettaxi.member WHERE phone = %s', phoneNumber)
+        except Error as error:
+            return {'error' : error}
+
         if password == list_of_results[0][0]:
-            (phone, password, date_of_birth, facebook_id, email, address, firstname, lastname) = (mysql.query('SELECT * FROM gettaxi.member WHERE phone = %s', phoneNumber))[0]
-            mysql.close()
+            (phone, type, password, date_of_birth, facebook_id, email, address, firstname, lastname) = (mysql.query('SELECT * FROM gettaxi.member WHERE phone = %s', phoneNumber))[0]
+            if type == 'driver':
+                try:
+                    mysql.insert('INSERT INTO gettaxi.subcriber_driver (phone, real_time_lat_location, real_time_long_location, direction, status) VALUES (%s, %s, %s, %s, %s)',(phoneNumber,real_time_lat_location,real_time_long_location,direction,status))
+                except Error as error:
+                    return {'error' : error}
+            elif type == 'user':
+                try:
+                    mysql.insert('INSERT INTO gettaxi.subcriber_user (phone, real_time_lat_location, real_time_long_location, status) VALUES (%s, %s, %s, %s)',(phoneNumber,real_time_lat_location,real_time_long_location,status))
+                except Error as error:
+                    return {'error' : error}
+
             user_profile = {
                 'facebookID': facebook_id,
                 'phoneNumber': phone,
+                'type': type,
                 'password': password,
                 'dataOfBirth': date_of_birth.strftime("%d-%m-%Y"),
                 'firstName': firstname,
@@ -30,13 +44,26 @@ class User:
                 'address': address,
                 'email': email
             }
+            mysql.close()
             return {'user' : user_profile}
         else:
             return {'error' : 'inValid id or password'}
 
-    def logout(self):
-        print('logout')
-        return "000nut..."
+    def logout(self, phoneNumber):
+        mysql = MySQL()
+        querys = ''
+        type = mysql.query('SELECT type FROM gettaxi.member WHERE phone = %s', phoneNumber)
+        type = type[0][0]
+        if type == 'driver':
+            querys = 'DELETE FROM gettaxi.subcriber_driver WHERE phone = %s'
+        elif type == 'user':
+            querys = 'DELETE FROM gettaxi.subcriber_user WHERE phone = %s'
+        try:
+            mysql.delete(querys, phoneNumber)
+        except Error as error:
+            return {'error' : error}
+        mysql.close()
+        return {'message' : 'logout sucessful.'}
     
     def editProfile(self, user):
         self.facebookID = user.facebookID
