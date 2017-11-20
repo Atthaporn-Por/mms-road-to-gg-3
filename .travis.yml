@@ -15,4 +15,5 @@ matrix:
         - "7"
       before_script:
         - npm install -g gulp-cli
-      script: gulp
+      script: 
+        - gulp
