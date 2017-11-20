@@ -13,6 +13,9 @@ matrix:
       node_js:
         - "stable"
       before_script:
-        - npm install -g gulp-cli
+        - npm install --global gulp
+        - npm install --save-dev gulp
+        - npm install --save-dev gulp-util
+        - npm init
       script: 
         - gulp
