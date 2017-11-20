@@ -9,12 +9,21 @@ matrix:
       script:
         - python Test/test_test.py
 
-    - language: node_js
+    - sudo: false
+      language: node_js
       node_js:
-        - "7"
-      install:
-        - npm install
-        - npm install -g gulp
-        - npm init
-      script: 
-        - gulp
+        - "5"
+        - "6"
+
+      cache:
+        yarn: true
+        directories:
+          - node_modules
+
+      script:
+        - yarn lint
+        - yarn test
+        - yarn build
+
+      after_success:
+      - yarn codecov
