@@ -20,10 +20,13 @@ matrix:
         directories:
           - node_modules
       
+      install:
+        - cd Admin
+      
       script:
-        - cd Admin && yarn lint
-        - cd Admin && yarn test
-        - cd Admin && yarn build
+        - yarn lint
+        - yarn test
+        - yarn build
 
       after_success:
-      - cd Admin && yarn codecov
+        - yarn codecov
