@@ -8,24 +8,24 @@ matrix:
         - pip install PyMySQL
       script:
         - python Test/test_test.py
-/*
-    - sudo: false
-      language: node_js
-      node_js:
-        - "5"
-        - "6"
-      cache:
-        yarn: true
-        directories:
-          - node_modules
-      before_install:
-        - cd Admin
-      script:
-        - yarn link
-        - yarn test
-        - yarn build
-      after_success:
-        - yarn codecov
-*/
+
+#    - sudo: false
+#      language: node_js
+#      node_js:
+#        - "5"
+#        - "6"
+#      cache:
+#        yarn: true
+#        directories:
+#          - node_modules
+#      before_install:
+#        - cd Admin
+#      script:
+#        - yarn link
+#        - yarn test
+#        - yarn build
+#      after_success:
+#        - yarn codecov
+
 notifications:
   email: false
