@@ -24,6 +24,7 @@ matrix:
         - cd Admin
       
       script:
+        - yarn link
         - yarn test
         - yarn build
 
