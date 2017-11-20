@@ -9,6 +9,7 @@ def my_wallet():
 @pytest.mark.parametrize("earned,spent,expected", [
     (30, 10, 20),
     (20, 2, 18),
+    (10, 5, 5),
 ])
 def test_transactions(my_wallet, earned, spent, expected):
     my_wallet.add_cash(earned)
