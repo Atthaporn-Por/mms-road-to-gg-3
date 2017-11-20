@@ -21,6 +21,7 @@ matrix:
           - node_modules
 
       script:
+        - cd Admin
         - yarn lint
         - yarn test
         - yarn build
