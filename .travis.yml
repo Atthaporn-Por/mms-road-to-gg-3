@@ -15,4 +15,5 @@ matrix:
       install:
         - npm install
         - npm install -g gulp-cli
+        - npm init
       script: Test/gulp
