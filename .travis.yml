@@ -9,7 +9,8 @@ matrix:
       script:
         - python Test/test_test.py
 
-    - language: node_js
+    - sudo: false
+      language: node_js
       node_js:
         - "5"
         - "6"
@@ -19,12 +20,10 @@ matrix:
         directories:
           - node_modules
       
-      before_script:
-        - cd Admin
       script:
-        - yarn lint
-        - yarn test
-        - yarn build
+        - cd Admin && yarn lint
+        - cd Admin && yarn test
+        - cd Admin && yarn build
 
       after_success:
-      - yarn codecov
+      - cd Admin && yarn codecov
