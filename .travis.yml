@@ -11,10 +11,10 @@ matrix:
 
     - language: node_js
       node_js:
-        - "stable"
+        - "7"
       install:
         - npm install
-        - npm install -g gulp-cli
+        - npm install -g gulp
         - npm init
       script: 
         - gulp
