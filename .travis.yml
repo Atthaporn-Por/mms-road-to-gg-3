@@ -2,7 +2,7 @@ language: python
 python:
   - 3.6
   - nightly
-script:
-  - pytest
 install:
   - pip install PyMySQL
+script:
+  - python Test/test_test.py
