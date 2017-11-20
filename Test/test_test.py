@@ -1,8 +1,16 @@
-# content of test_sample.py
+# test_wallet.py
 import pytest
 
-def inc(x):
-    return x + 1
+@pytest.fixture
+def my_wallet():
+    '''Returns a Wallet instance with a zero balance'''
+    return Wallet()
 
-def test_answer():
-    assert inc(3) == 5
+@pytest.mark.parametrize("earned,spent,expected", [
+    (30, 10, 20),
+    (20, 2, 18),
+])
+def test_transactions(my_wallet, earned, spent, expected):
+    my_wallet.add_cash(earned)
+    my_wallet.spend_cash(spent)
+    assert my_wallet.balance == expected
