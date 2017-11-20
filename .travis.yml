@@ -30,3 +30,6 @@ matrix:
 
       after_success:
         - yarn codecov
+
+notifications:
+  email: false
