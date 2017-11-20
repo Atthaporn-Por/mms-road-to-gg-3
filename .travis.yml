@@ -11,8 +11,7 @@ matrix:
 
     - language: node_js
       node_js:
-        - "iojs"
-        - "7"
+        - "stable"
       before_script:
         - npm install -g gulp-cli
       script: 
