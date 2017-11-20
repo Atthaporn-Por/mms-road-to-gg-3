@@ -8,7 +8,7 @@ matrix:
         - pip install PyMySQL
       script:
         - python Test/test_test.py
-
+/*
     - sudo: false
       language: node_js
       node_js:
@@ -26,6 +26,6 @@ matrix:
         - yarn build
       after_success:
         - yarn codecov
-
+*/
 notifications:
   email: false
