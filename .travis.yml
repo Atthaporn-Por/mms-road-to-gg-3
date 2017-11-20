@@ -9,8 +9,7 @@ matrix:
       script:
         - python Test/test_test.py
 
-    - sudo: false
-      language: node_js
+    - language: node_js
       node_js:
         - "5"
         - "6"
