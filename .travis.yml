@@ -14,20 +14,16 @@ matrix:
       node_js:
         - "5"
         - "6"
-
       cache:
         yarn: true
         directories:
           - node_modules
-      
       before_install:
         - cd Admin
-      
       script:
         - yarn link
         - yarn test
         - yarn build
-
       after_success:
         - yarn codecov
 */
