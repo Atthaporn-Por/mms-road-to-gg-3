@@ -1,4 +1,8 @@
-language: node_js
-node_js:
-  - "iojs"
-  - "7"
+language: python
+python:
+  - 3.6
+  - nightly
+script:
+  - pytest
+install:
+  - pip install PyMySQL
