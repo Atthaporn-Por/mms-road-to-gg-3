@@ -14,11 +14,11 @@ import MainScreenLayout from 'layouts/MainScreenLayout'
 
 export class LoginScreen extends React.Component {
   _handleFacebookLogin = async () => {
-   try {
-     const { type, token } = await Facebook.logInWithReadPermissionsAsync(
+    try {
+      const { type, token } = await Facebook.logInWithReadPermissionsAsync(
        '1201211719949057', // Replace with your own app id in standalone app
        { permissions: ['public_profile'] }
-     );
+       );
 
      switch (type) {
        case 'success': {
@@ -50,7 +50,8 @@ export class LoginScreen extends React.Component {
        'Oops!',
        'Login failed!',
      );
-   }
+    }
+   };
    _handleGoogleLogin = async () => {
       try {
         const { type, user } = await Google.logInAsync({
@@ -89,7 +90,7 @@ export class LoginScreen extends React.Component {
           'Login failed!',
         );
       }
- };
+}
   render () {
     return (
       <MainScreenLayout >
@@ -135,12 +136,12 @@ const styles = StyleSheet.create({
   },
   fbIcon: {
     fontSize: 50,
-    color: '#3b5998'
+    color: '#3b5998',
     marginHorizontal: 10
   },
   googleIcon:{
     fontSize: 50,
-    color :'#DB443'
+    color :'#DD4B35'
   },
   p: {
     alignItems: 'center',
