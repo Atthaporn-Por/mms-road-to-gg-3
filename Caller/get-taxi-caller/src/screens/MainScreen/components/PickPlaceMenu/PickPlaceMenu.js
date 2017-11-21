@@ -43,7 +43,10 @@ const styles = StyleSheet.create({
 })
 
 PickPlaceMenu.propTypes = {
-  style: PropTypes.number,
+  style: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.array
+  ]),
   navigation: PropTypes.object,
   newTransaction: PropTypes.instanceOf(Map)
 }
