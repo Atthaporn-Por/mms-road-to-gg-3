@@ -13,6 +13,7 @@ class Handler(BaseHTTPRequestHandler):
         path= self.path
         realpath= parsed_path.path
         querys = parsed_path.query
+        querys = querys.replace('%20',' ')
         response = url_management(realpath, querys)
         self.send_response(200)
         self.send_header('Content-type', 'application/json')
