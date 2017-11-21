@@ -95,8 +95,7 @@ class User:
             'lastName': lastname,
             'address': address,
             'email': email,
-            'type': type,
-            'phone': phone
+            'type': type
         }
 
         mysql.close()
