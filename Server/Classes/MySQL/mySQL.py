@@ -24,7 +24,11 @@ class MySQL:
         elif dict_data != {}:
             self.cursor.execute(querys,dict_data)
         else:
-            self.self.cursor.execute(querys)
+            self.cursor.execute(querys)
+        self.cnx.commit()
+
+    def update(self,querys,data=()):
+        self.cursor.execute(querys,data)
         self.cnx.commit()
 
     def delete(self,querys,formats=()):
