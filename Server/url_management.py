@@ -39,6 +39,32 @@ def user(path_list, querys_dict):
         except Error as error:
             print(error)
             return {'error' : 'inValid syntax id'}
+    elif path_list[2] == 'editprofile':
+        print('do edit')
+        try:
+            facebookID_edit=''
+            password_edit=''
+            dataOfBirth_edit=''
+            firstName_edit=''
+            lastName_edit=''
+            address_edit=''
+
+            if 'facebookID' in querys_dict:
+                facebookID_edit = querys_dict['facebookID']
+            if 'password' in querys_dict:
+                password_edit = querys_dict['password']
+            if 'dataOfBirth' in querys_dict:
+                dataOfBirth_edit = querys_dict['dataOfBirth']
+            if 'firstName' in querys_dict:
+                firstName_edit = querys_dict['firstName']
+            if 'lastName' in querys_dict:
+                lastName_edit = querys_dict['lastName']
+            if 'address' in querys_dict:
+                address_edit = querys_dict['address']
+            return User().editProfile(querys_dict['id'],facebookID_edit,password_edit,dataOfBirth_edit,firstName_edit,lastName_edit,address_edit)
+        except Error as error:
+            print(error)
+            return {'error' : 'inValid syntax id'}
 
 
 def caller(path_list, querys_dict):
