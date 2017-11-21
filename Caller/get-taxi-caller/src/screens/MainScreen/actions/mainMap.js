@@ -11,11 +11,11 @@ import { GOOGLE_MAP_API_KEY } from 'react-native-dotenv'
 // ------------------------------------
 // Constants
 // ------------------------------------
-export const UPDATE_MAIN_MAP = 'mainMap/UPDATE_MAIN_MAP'
-export const UPDATE_CURRENT_LOCATION = 'mainMap/UPDATE_CURRENT_LOCATION'
-export const UPDATE_CURRENT_REGION = 'mainMap/UPDATE_CURRENT_REGION'
-export const UPDATE_MAP_ROUTE = 'mainMap/UPDATE_MAP_ROUTE'
-export const UPDATE_TAXIS = 'mainMap/UPDATE_TAXIS'
+const UPDATE_MAIN_MAP = 'mainMap/UPDATE_MAIN_MAP'
+const UPDATE_CURRENT_LOCATION = 'mainMap/UPDATE_CURRENT_LOCATION'
+const UPDATE_CURRENT_REGION = 'mainMap/UPDATE_CURRENT_REGION'
+const UPDATE_MAP_ROUTE = 'mainMap/UPDATE_MAP_ROUTE'
+const UPDATE_TAXIS = 'mainMap/UPDATE_TAXIS'
 
 // ------------------------------------
 // Actions

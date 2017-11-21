@@ -10,15 +10,15 @@ import Layout from 'layouts/MainScreenLayout'
 // import Layout from 'components/PopupLayout'
 import MainMap from './components/MainMap'
 import PickPlaceMenu from './components/PickPlaceMenu'
+import CallButtonsPanel from './components/CallButtonsPanel'
 
 export class MainScreen extends React.Component {
   render () {
     return (
       <Layout onPressMenu={() => this.props.navigation.navigate('DrawerOpen')}>
         <MainMap {...this.props} styles={styles.mainMap} />
-        <View style={styles.overLayPanel}>
-          <PickPlaceMenu style={styles.pickPlaceMenu} navigation={this.props.navigation} />
-        </View>
+        <PickPlaceMenu style={[styles.overLayPanel, styles.pickPlaceMenu]} navigation={this.props.navigation} />
+        <CallButtonsPanel style={[styles.overLayPanel, styles.callButtonsPanel]} navigation={this.props.navigation} />
       </Layout>
     )
   }
@@ -35,16 +35,22 @@ const styles = StyleSheet.create({
   },
   overLayPanel: {
     position: 'absolute',
-    top: 0,
-    bottom: null,
-    left: 0,
-    right: 0,
     zIndex: 1
   },
   pickPlaceMenu: {
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: null,
     height: null,
     marginTop: '5%',
     marginHorizontal: '5%'
+  },
+  callButtonsPanel: {
+    top: null,
+    bottom: 0,
+    height: null,
+    marginBottom: '5%'
   }
 })
 

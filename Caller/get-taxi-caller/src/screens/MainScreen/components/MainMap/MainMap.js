@@ -118,6 +118,21 @@ export class MainMap extends React.Component {
     ) || null
   }
 
+  getTaxiPins () {
+    const { taxis } = this.props
+
+    return (
+      taxis.size && taxis.map(car => {
+        return <Marker
+          coordinate={car.get('location').toJS()}
+          title='Taxi'
+          description={`Taxi's plate no. : ${car.get('plate')} \n Color: ${car.get('colors').join('-')}`} >
+          <Icon name='taxi' size={30} />
+        </Marker>
+      })
+    ) || null
+  }
+
   getMapRoute () {
     const { mapRoute } = this.props
 
@@ -141,6 +156,7 @@ export class MainMap extends React.Component {
           onRegionChange={this._handleCurrentRegionChange} >
           {this.getPickUpPin()}
           {this.getDropOffPin()}
+          {this.getTaxiPins()}
           {this.getMapRoute()}
           <View style={styles.overMap}>
             {this.props.children}
@@ -168,9 +184,13 @@ const styles = StyleSheet.create({
 })
 
 MainMap.propTypes = {
-  style: PropTypes.number,
+  style: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.array
+  ]),
   children: PropTypes.node,
   mapRoute: PropTypes.instanceOf(List),
+  taxis: PropTypes.instanceOf(List),
   currentRegion: PropTypes.instanceOf(Map),
   currentLocation: PropTypes.instanceOf(Map),
   newTransaction: PropTypes.instanceOf(Map),
@@ -182,6 +202,7 @@ MainMap.propTypes = {
 
 MainMap.defaultProps = {
   mapRoute: List(),
+  taxis: List(),
   newTransaction: Map(),
   currentRegion: Map(),
   currentLocation: Map()
