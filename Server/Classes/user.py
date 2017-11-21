@@ -20,7 +20,7 @@ class User:
         except Error as error:
             mysql.close()
             return {'error' : error}
-        (user_password,) = list_of_results[0]
+        (user_password) = list_of_results[0]
 
         if password == user_password:
             (phone, type, password, date_of_birth, facebook_id, email, address, firstname, lastname) = (mysql.query('SELECT * FROM gettaxi.member WHERE phone = %s', phoneNumber))[0]
@@ -71,24 +71,35 @@ class User:
         mysql.close()
         return {'message' : 'logout sucessfully.'}
     
-    def editProfile(self, user):
-        self.facebookID = user.facebookID
-        self.phoneNumber = user.phoneNumber
-        self.password = user.password
-        self.dataOfBirth = user.dataOfBirth
-        self.firstName = user.firstName
-        self.lastName = user.lastName
-        self.address = user.address
+    def editProfile(self,phoneNumber,facebookID_edit='',password_edit='',dataOfBirth_edit='',firstName_edit='',lastName_edit='',address_edit=''):
+        mysql = MySQL()
+        if facebookID_edit != '':
+            mysql.update('UPDATE gettaxi.member SET facebook_id=%s WHERE phone=%s',(facebookID_edit,phoneNumber))
+        if password_edit != '':
+            mysql.update('UPDATE gettaxi.member SET password=%s WHERE phone=%s',(password_edit,phoneNumber))
+        if dataOfBirth_edit != '':
+            mysql.update('UPDATE gettaxi.member SET date_of_birth=%s WHERE phone=%s',(dataOfBirth_edit,phoneNumber))
+        if firstName_edit != '':
+            mysql.update('UPDATE gettaxi.member SET firstname=%s WHERE phone=%s',(firstName_edit,phoneNumber))
+        if lastName_edit != '':
+            mysql.update('UPDATE gettaxi.member SET lastname=%s WHERE phone=%s',(lastName_edit,phoneNumber))
+        if address_edit != '':
+            mysql.update('UPDATE gettaxi.member SET address=%s WHERE phone=%s',(address_edit,phoneNumber))
 
+        (phone, type, password, date_of_birth, facebook_id, email, address, firstname, lastname) = (mysql.query('SELECT * FROM gettaxi.member WHERE phone = %s', phoneNumber))[0]
         new_user_profile = {
-            'facebookID': self.facebookID,
-            'phoneNumber': self.phoneNumber,
-            'dataOfBirth': self.dataOfBirth,
-            'firstName': self.firstName,
-            'lastName': self.lastName,
-            'address': self.address
+            'facebookID': facebook_id,
+            'phoneNumber': phone,
+            'dataOfBirth': date_of_birth.strftime("%d-%m-%Y"),
+            'firstName': firstname,
+            'lastName': lastname,
+            'address': address,
+            'email': email,
+            'type': type,
+            'phone': phone
         }
 
+        mysql.close()
         return {'user' : new_user_profile}
 
     def sendRegEmail(self, email, password):
