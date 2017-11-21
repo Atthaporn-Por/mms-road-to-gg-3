@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Map } from 'immutable'
 import Moment from 'moment'
-import { StyleSheet, Image, View } from 'react-native'
+import { StyleSheet, Image, View, Alert } from 'react-native'
 import { Button, Text } from 'native-base'
 
 import importedStyles from '../styles'
@@ -10,13 +10,10 @@ import importedStyles from '../styles'
 export class FreeCallButton extends React.Component {
   constructor (props) {
     super(props)
-    const counter = Moment().diff(Moment(props.freeCallStamp), 'seconds')
-    const timer = counter < 3 * 60 &&
-      setInterval(this.tick, 1000)
 
     this.state = {
-      timer,
-      counter
+      timer: null,
+      counter: 0
     }
   }
 
@@ -24,18 +21,50 @@ export class FreeCallButton extends React.Component {
     clearInterval(this.state.timer)
   }
 
-  componentsDidMount () {
-
+  componentDidMount () {
+    this.setTimer()
   }
 
-  tick = () => {
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.freeCallStamp !== this.props.freeCallStamp) {
+      this.setTimer({ freeCallStamp: nextProps.freeCallStamp })
+    }
+  }
+
+  setTimer ({ freeCallStamp = this.props.freeCallStamp } = {}) {
+    if (_.isNil(freeCallStamp)) {
+      return
+    }
+
+    const counter = 5 - Moment().diff(Moment(freeCallStamp), 'seconds')
+    const timer = counter > 0 &&
+      setInterval(this.tick, 1000)
+
     this.setState({
-      counter: this.state.counter - 1
+      counter,
+      timer
     })
   }
 
-  _makeFreeCall () {
-    // this.props.
+  tick = () => {
+    const counter = this.state.counter - 1
+    this.setState({ counter })
+
+    if (this.state.counter <= 0) {
+      this.countingCompleted()
+    }
+  }
+
+  countingCompleted = () => {
+    clearInterval(this.state.timer)
+    this.setState({ timer: null })
+
+    this.props.clearReservation()
+
+    Alert.alert('Make another free call', 'Do you want to make call again', [
+      { text: 'Call Again', onPress: () => this.props.makeFreeCall() },
+      { text: 'Cancel', style: 'cancel' }
+    ])
   }
 
   getCountDownText () {
@@ -50,7 +79,7 @@ export class FreeCallButton extends React.Component {
     return (
       <Button transparent disabled={timer && true}
         style={[styles.button, this.props.style]}
-        onPress={() => this._makeFreeCall()}>
+        onPress={() => this.props.makeFreeCall()}>
         <Image resizeMode='contain' style={[styles.buttonImage, timer ? styles.buttonCountDown : null]} source={require('assets/buttons/call.png')}>
           {timer ? this.getCountDownText() : null}
         </Image>
@@ -82,11 +111,12 @@ FreeCallButton.propTypes = {
   ]),
   freeCallStamp: PropTypes.string,
 
-  makeFreeCall: PropTypes.func
+  makeFreeCall: PropTypes.func,
+  clearReservation: PropTypes.func
 }
 
 FreeCallButton.defaultProps = {
-  freeCallStamp: Moment().subtract({ minutes: 2 }).toISOString(),
+  // freeCallStamp: Moment().subtract({ seconds: 2 * 60 + 50 }).toISOString(),
   mainMap: Map()
 }
 
