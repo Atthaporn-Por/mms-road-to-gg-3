@@ -43,7 +43,7 @@ if __name__ == '__main__':
         configuration_file = open('configuration','w')
         configuration_file.write("host:localhost\nport:5000")
         configuration_file.close()
-        print('configuration file is not found : use "localhost" and port : 8080 as default')
+        print('configuration file is not found : use "localhost" and port : 5000 as default')
         pass
     server = ThreadedHTTPServer((host, port), Handler)
     print('Starting server on %s port: %s, use <Ctrl-C> to stop' % (host, port))
