@@ -42,7 +42,6 @@ class User:
                 'facebookID': facebook_id,
                 'phoneNumber': phone,
                 'type': type,
-                'password': password,
                 'dataOfBirth': date_of_birth.strftime("%d-%m-%Y"),
                 'firstName': firstname,
                 'lastName': lastname,
