@@ -69,7 +69,7 @@ class User:
             mysql.close()
             return {'error' : error}
         mysql.close()
-        return {'message' : 'logout sucessful.'}
+        return {'message' : 'logout sucessfully.'}
     
     def editProfile(self, user):
         self.facebookID = user.facebookID

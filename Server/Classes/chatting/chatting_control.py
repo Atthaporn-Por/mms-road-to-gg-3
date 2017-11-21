@@ -1,13 +1,13 @@
 class ChattingControl:
 
-    def send(message=''):
+    def send(self,message=''):
         print('send message : %s' % message)
 
-    def read(messageID=0):
+    def read(self,messageID=0):
         print('read message : %s' % str(messageID))
 
-    def save_chat():
+    def save_chat(self):
         print('save chat')
 
-    def ordering():
+    def ordering(self):
         print('ordering')

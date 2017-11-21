@@ -1,13 +1,13 @@
 class Conversation:
 
-    def __init__(transactionID='', text='', speaker='', timestamp=''):
+    def __init__(self,transactionID='', text='', speaker='', timestamp=''):
         self.transactionID = transactionID
         self.text = text
         self.speaker = speaker
         self.timestamp = timestamp
 
-    def save_conversation():
+    def save_conversation(self):
         print('save conversation')
 
-    def isAscend_ordering():
+    def isAscend_ordering(self):
         return True
