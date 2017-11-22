@@ -38,6 +38,11 @@ export class MainMap extends React.Component {
   }
 
   state = {
+<<<<<<< HEAD
+    mapRegion: { latitude: 13.756300, longitude: 100.501800, latitudeDelta:  LATITUDE_DELTA, longitudeDelta:  LONGITUDE_DELTA },
+    // mapRegion: { latitude: 63.756300, longitude: 60.501800, latitudeDelta: 0.04, longitudeDelta: 0.04 },
+    getNearbyTaxiInterval: null
+=======
     regionSet: false,
     getNearbyTaxiInterval: null,
     currentRegion: { latitude: 13.7563, longitude: 100.5018, latitudeDelta: 0.0430, longitudeDelta: 0.0275 }
@@ -54,6 +59,7 @@ export class MainMap extends React.Component {
         this.props.getNearbyTaxi()
       }, 30000)
     })
+>>>>>>> 5d1c13aa3f9ca1388cb8be3cc4c513a5c094a8c7
   }
 
   _handleCurrentLocationChange = (location) => {
