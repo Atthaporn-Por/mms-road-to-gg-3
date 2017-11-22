@@ -1,5 +1,5 @@
 import { AsyncStorage } from 'react-native'
-import Immutable from 'immutable'
+import { fromJS } from 'immutable'
 import request from 'utils/request'
 // import I18n from 'utils/i18n'
 
@@ -16,6 +16,7 @@ import { setFlashMessage } from './interface'
 export const UPDATE_CURRENT_USER = 'UPDATE_CURRENT_USER'
 export const UPDATE_ACCESS_TOKEN = 'UPDATE_ACCESS_TOKEN'
 export const UPDATE_USER_LOGIN = 'UPDATE_USER_LOGIN'
+export const UPDATE_USER_O_AUTH = 'UPDATE_USER_O_AUTH'
 
 export const SIGN_IN_LOADING = 'SIGN_IN_LOADING'
 
@@ -43,6 +44,13 @@ export function updateUserLogin (userLogin) {
   }
 }
 
+export function updateUserOAuth (payload) {
+  return {
+    type    : UPDATE_USER_O_AUTH,
+    payload : payload
+  }
+}
+
 export function signInLoading (value) {
   return {
     type    : SIGN_IN_LOADING,
@@ -57,7 +65,7 @@ export const login = (redirect = true) => {
     dispatch(signInLoading(true))
 
     request.post('/authentication/session')
-      .send(getState().get('authentication').get('updateUserLogin').get('emailLogin'))
+      .send(getState().get('authentication').get('userLogingin').get('emailLogin'))
       .then(response => {
         dispatch(updateCurrentUser(response.body.admin_user))
         dispatch(updateAccessToken(response.body.access_token))
@@ -81,7 +89,7 @@ export const oauthLogin = (redirect = true) => {
     dispatch(signInLoading(true))
 
     request.post('/authentication/session/oauth')
-      .send(getState().get('authentication').get('updateUserLogin').get('oauthLogin'))
+      .send(getState().get('authentication').get('userLogingin').get('oauthLogin'))
       .then(response => {
         dispatch(updateCurrentUser(response.body.admin_user))
         dispatch(updateAccessToken(response.body.access_token))
@@ -132,9 +140,10 @@ const ACTION_HANDLERS = {
     })
   },
   [UPDATE_USER_LOGIN]: (state, { payload }) => {
-    return state.mergeDeep({
-      updateUserLogin: payload
-    })
+    return state.mergeIn(['userLogingin', 'emailLogin'], fromJS(payload))
+  },
+  [UPDATE_USER_O_AUTH]: (state, { payload }) => {
+    return state.mergeIn(['userLogingin', 'oauthLogin'], fromJS(payload))
   },
   [SIGN_IN_LOADING]: (state, { payload }) => {
     return state.merge({
@@ -146,8 +155,18 @@ const ACTION_HANDLERS = {
 // ------------------------------------
 // Reducer
 // ------------------------------------
-const initialState = Immutable.fromJS({
+const initialState = fromJS({
   signInLoading: false,
+  userLogingin: {
+    emailLogin: {
+      user: null,
+      Password: null
+    },
+    oauthLogin: {
+      token: null,
+      type: null
+    }
+  },
   currentUser: {
     favorite_places: [{
       description: 'Work',
