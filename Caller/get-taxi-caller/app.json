@@ -7,6 +7,7 @@
     "sdkVersion": "22.0.0",
     "version": "1.0.0",
     "orientation": "portrait",
+    "facebookScheme": "fb1947365685589353",
     "primaryColor": "#cccccc",
     "icon": "./src/assets/icons/gettaxi_icon.png",
     "splash": {

@@ -11,7 +11,6 @@
         "import",
         "react-native",
         "babel",
-        "react",
         "promise"
     ],
     "globals": {
@@ -19,6 +18,7 @@
       "__TEST__"     : false,
       "__PROD__"     : false,
       "__COVERAGE__" : false,
+      "fetch" : false,
       "alert" : false,
       "_" : false
     },

@@ -6,7 +6,7 @@ import MainMap from './MainMap'
 import {
   updateMapRoute, updateCurrentRegion, updateCurrentLocation,
   getDirections, getNearbyTaxi
-} from 'screens/MainScreen/actions/mainMap'
+} from '../../actions/mainMap'
 
 const mapStateToProps = (state, ownProps) => {
   const mainMap = state.get('mainMap', Map())

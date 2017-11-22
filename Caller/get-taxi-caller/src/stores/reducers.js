@@ -10,7 +10,7 @@ export const makeRootReducer = (asyncReducers) => {
     locations:      require('./locations').default,
     newTransaction: require('./newTransaction').default,
     reservation:    require('./reservation').default,
-    mainMap:        require('../screens/MainScreen/actions/mainMap').default,
+    mainMap:        require('screens/AuthScreen/screens/MainScreen/actions/mainMap').default,
     ...asyncReducers
   })
 }
