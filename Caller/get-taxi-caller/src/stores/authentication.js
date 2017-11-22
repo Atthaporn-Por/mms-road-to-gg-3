@@ -37,7 +37,7 @@ function updateAccessToken (accessToken) {
   }
 }
 
-export function updateUserLogin (userLogin) {
+export function updateUserLogingin (userLogin) {
   return {
     type    : UPDATE_USER_LOGIN,
     payload : userLogin
@@ -67,7 +67,7 @@ export const login = (redirect = true) => {
     request.post('/authentication/session')
       .send(getState().get('authentication').get('userLogingin').get('emailLogin'))
       .then(response => {
-        dispatch(updateCurrentUser(response.body.admin_user))
+        dispatch(updateCurrentUser(response.body.user))
         dispatch(updateAccessToken(response.body.access_token))
 
         if (redirect) {
@@ -91,19 +91,22 @@ export const oauthLogin = (redirect = true) => {
     request.post('/authentication/session/oauth')
       .send(getState().get('authentication').get('userLogingin').get('oauthLogin'))
       .then(response => {
-        dispatch(updateCurrentUser(response.body.admin_user))
+        dispatch(updateCurrentUser(response.body.user))
         dispatch(updateAccessToken(response.body.access_token))
 
-        if (redirect) {
-          dispatch(NavigationActions.navigate({ routeName: 'AuthScreen' }))
-        }
+        // if (redirect) {
+        //   dispatch(NavigationActions.navigate({ routeName: 'AuthScreen' }))
+        // }
+        return { success: true }
       })
       .catch(error => {
         dispatch(setFlashMessage('signInError', error.response.body.message))
         console.warn(error.response.body.message)
+        return { success: false }
       })
-      .then(() => {
+      .then((res) => {
         dispatch(signInLoading(false))
+        return res
       })
   }
 }

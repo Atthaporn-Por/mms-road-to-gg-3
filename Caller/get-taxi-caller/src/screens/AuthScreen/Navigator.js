@@ -23,24 +23,27 @@ const AuthScreenNavigator = DrawerNavigator(
 )
 
 export class AuthScreen extends React.Component {
-  componentDidMount () {
-    // this.props.navigation.dispatch(NavigationActions.navigate({ routeName: 'UnAuthScreen' }))
-    this.props.dispatch(NavigationActions.navigate({ routeName: 'UnAuthScreen' }))
+  static propTypes = {
+    isLoggedin: PropTypes.string,
+    dispatch: PropTypes.func
+  }
+
+  componentWillMount () {
+    if (!this.props.isLoggedin) {
+      this.props.dispatch(NavigationActions.reset({
+        index: 0,
+        actions: [NavigationActions.navigate({ routeName: 'UnAuthScreen' })]
+      }))
+    }
   }
 
   render () {
-    return (
-      <AuthScreenNavigator />
-    )
+    return this.props.isLoggedin ? <AuthScreenNavigator /> : null
   }
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  accessToken: state.get('authentication').get('accessToken')
+  isLoggedin: state.get('authentication').get('accessToken')
 })
-
-// const mapDispatchToProps = (dispatch) => ({
-//   goToUnAuthPage: dispatch(NavigationActions.navigate({ routeName: 'UnAuthScreen' }))
-// })
 
 export default connect(mapStateToProps)(AuthScreen)

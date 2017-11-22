@@ -1,20 +1,14 @@
 import React from 'react'
-import { List, fromJS } from 'immutable'
-import { Facebook, Google } from 'expo'
+import { Map } from 'immutable'
 import PropTypes from 'prop-types'
 
-import { Image, StyleSheet, View, Alert } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import {
-  Left,
-  Body,
-  Right,
   Content,
-  Label,
   Form,
   Item,
   Text,
   Button,
-  InputGroup,
   Input
 } from 'native-base'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -36,14 +30,20 @@ export class LoginScreen extends React.Component {
           </View>
           <Form>
             <Item rounded style={styles.container}>
-              <Input placeholder='Username' />
+              <Input placeholder='Username'
+                value={this.props.userLogingin.get('user')}
+                onChangeText={text => this.props.updateUserLogingin({ user: text })}
+              />
             </Item>
             <Item rounded style={styles.container}>
-              <Input placeholder='Password' secureTextEntry />
+              <Input placeholder='Password' secureTextEntry
+                value={this.props.userLogingin.get('user')}
+                onChangeText={text => this.props.updateUserLogingin({ password: text })}
+              />
             </Item>
             <View style={styles.con}>
-              <Button primary onPress={() => this.props.login()}>
-                <Text>
+              <Button primary onPress={this.props.login} style={{ height: 50 }} disabled={this.props.signInLoading}>
+                <Text style={styles.loginText}>
                   Log-in
                 </Text>
               </Button>
@@ -90,13 +90,27 @@ const styles = StyleSheet.create({
   p: {
     alignItems: 'center',
     flexDirection: 'column'
+  },
+  loginText: {
+    width: '100%',
+    textAlign: 'center',
+    fontSize: 23,
+    lineHeight: 40
   }
 })
 
 LoginScreen.propTypes = {
+  signInLoading: PropTypes.bool,
+  userLogingin: PropTypes.instanceOf(Map),
+
+  updateUserLogingin: PropTypes.func,
   login: PropTypes.func,
   handleGoogleLogin: PropTypes.func,
   handleFacebookLogin: PropTypes.func
+}
+
+LoginScreen.defaultProps = {
+  userLogingin: Map()
 }
 
 export default LoginScreen
