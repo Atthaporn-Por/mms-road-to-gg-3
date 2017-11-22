@@ -3,7 +3,7 @@ import Immutable from 'immutable'
 import request from 'utils/request'
 // import I18n from 'utils/i18n'
 
-// import { push } from 'react-router-redux'
+import { NavigationActions } from 'react-navigation'
 
 // import { normalize } from 'stores/entities'
 import { setFlashMessage } from './interface'
@@ -63,7 +63,7 @@ export const login = (redirect = true) => {
         dispatch(updateAccessToken(response.body.access_token))
 
         if (redirect) {
-          // dispatch(push(getState().get('routing').get('redirectURL', '/')))
+          dispatch(NavigationActions.navigate({ routeName: 'AuthScreen' }))
         }
       })
       .catch(error => {
@@ -87,7 +87,7 @@ export const oauthLogin = (redirect = true) => {
         dispatch(updateAccessToken(response.body.access_token))
 
         if (redirect) {
-          // dispatch(push(getState().get('routing').get('redirectURL', '/')))
+          dispatch(NavigationActions.navigate({ routeName: 'AuthScreen' }))
         }
       })
       .catch(error => {
@@ -112,7 +112,7 @@ export const logout = () => {
         dispatch(updateCurrentUser(undefined))
         AsyncStorage.clear()
 
-        // dispatch(push('/sign_in'))
+        dispatch(NavigationActions.navigate({ routeName: 'UnAuthScreen' }))
       })
   }
 }

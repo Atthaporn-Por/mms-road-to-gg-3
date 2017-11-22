@@ -5,9 +5,9 @@ import LoginScreen from './LoginScreen'
 
 import { login, oauthLogin, logout } from 'stores/authentication'
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state, ownProps) => ({
 
-}
+})
 
 const mapDispatchToProps = {
 
