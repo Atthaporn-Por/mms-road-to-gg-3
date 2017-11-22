@@ -11,6 +11,7 @@ import Layout from 'layouts/MainScreenLayout'
 import MainMap from './components/MainMap'
 import PickPlaceMenu from './components/PickPlaceMenu'
 import CallButtonsPanel from './components/CallButtonsPanel'
+import FreeCallCountDown from './components/FreeCallCountDown'
 
 export class MainScreen extends React.Component {
   render () {
@@ -18,7 +19,8 @@ export class MainScreen extends React.Component {
       <Layout onPressMenu={() => this.props.navigation.navigate('DrawerOpen')}>
         <MainMap {...this.props} styles={styles.mainMap} />
         <PickPlaceMenu style={[styles.overLayPanel, styles.pickPlaceMenu]} navigation={this.props.navigation} />
-        <CallButtonsPanel style={[styles.overLayPanel, styles.callButtonsPanel]} navigation={this.props.navigation} />
+        <FreeCallCountDown style={[styles.overLayPanel, styles.callButtonsPanel]} navigation={this.props.navigation} />
+        // <CallButtonsPanel style={[styles.overLayPanel, styles.callButtonsPanel]} navigation={this.props.navigation} />
       </Layout>
     )
   }
