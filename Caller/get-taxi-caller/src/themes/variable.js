@@ -109,6 +109,10 @@ export default {
   brandDanger: '#d9534f',
   brandWarning: '#f0ad4e',
   brandSidebar: '#252932',
+  brandYellow: '#F7D31B',
+  brandRed: '#ed2224',
+  brandGreen: '#025339',
+  brandBlue: '#1b75bc',
 
   // Font
   fontFamily: platform === 'ios' ? 'System' : 'Roboto',

@@ -23,6 +23,7 @@
       "_" : false
     },
     "rules": {
+        "react/jsx-uses-react": 1,
         "no-underscore-dangle": "off",
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
         "key-spacing"          : 0,
