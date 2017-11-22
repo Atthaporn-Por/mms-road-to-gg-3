@@ -1,17 +1,16 @@
 import { NavigationActions } from 'react-navigation'
 import { RootStackNavigator } from 'navigation/RootNavigation'
-import { fromJS } from 'immutable'
 
 let initialState = RootStackNavigator.router.getStateForAction(
   NavigationActions.init()
 )
 
-const firstAction = RootStackNavigator.router.getActionForPathAndParams('UnAuthScreen')
-
-initialState = RootStackNavigator.router.getStateForAction(
-  firstAction,
-  initialState
-)
+// const firstAction = RootStackNavigator.router.getActionForPathAndParams('AuthScreen')
+//
+// initialState = RootStackNavigator.router.getStateForAction(
+//   firstAction,
+//   initialState
+// )
 
 export default (state = initialState, action) => {
   const nextState = RootStackNavigator.router.getStateForAction(action, state)
