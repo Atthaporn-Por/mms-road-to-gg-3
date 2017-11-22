@@ -13,12 +13,12 @@ import {
 } from 'native-base'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
-import MainScreenLayout from 'layouts/MainScreenLayout'
+import PopupLayout from 'layouts/PopupLayout'
 
 export class LoginScreen extends React.Component {
   render () {
     return (
-      <MainScreenLayout >
+      <PopupLayout title='Login' onPressBack={() => this.props.navigation.goBack()}>
         <Content style={styles.container}>
           <View style={[styles.loginBtnCon, styles.con]}>
             <Button transparent style={styles.oAuthBtn} onPress={this.props.handleFacebookLogin}>
@@ -41,16 +41,17 @@ export class LoginScreen extends React.Component {
                 onChangeText={text => this.props.updateUserLogingin({ password: text })}
               />
             </Item>
-            <View style={styles.con}>
-              <Button primary onPress={this.props.login} style={{ height: 50 }} disabled={this.props.signInLoading}>
-                <Text style={styles.loginText}>
-                  Log-in
-                </Text>
-              </Button>
-            </View>
+            <Button primary full large
+              disabled={this.props.signInLoading}
+              onPress={this.props.login}
+              style={{ marginVertical: 20 }}>
+              <Text style={styles.loginText}>
+                Log-in
+              </Text>
+            </Button>
           </Form>
         </Content>
-      </MainScreenLayout>
+      </PopupLayout>
     )
   }
 }
@@ -101,6 +102,7 @@ const styles = StyleSheet.create({
 
 LoginScreen.propTypes = {
   signInLoading: PropTypes.bool,
+  navigation: PropTypes.object,
   userLogingin: PropTypes.instanceOf(Map),
 
   updateUserLogingin: PropTypes.func,

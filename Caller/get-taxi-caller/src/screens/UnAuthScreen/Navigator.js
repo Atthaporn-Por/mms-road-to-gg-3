@@ -12,6 +12,6 @@ export default DrawerNavigator(
     FirstWelcomeScreen: { screen: FirstWelcomeScreen }
   },
   {
-    initialRouteName: 'LoginScreen'
+    initialRouteName: 'FirstWelcomeScreen'
   }
 )

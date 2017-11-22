@@ -1,10 +1,14 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Text, View, StyleSheet, Image } from 'react-native'
+import { Button } from 'native-base'
 
 import { Constants } from 'expo'
 
-export default class App extends Component {
+export default class FirstWelcomeScreen extends Component {
   render () {
+    const { navigation } = this.props
+
     return (
       <View style={styles.container}>
 
@@ -13,17 +17,20 @@ export default class App extends Component {
           style={styles.logo}
         />
 
-        <View style={styles.button1} >
-          <Image
-            source={require('assets/buttons/button_4.png')}
-            style={styles.Button_4}
-          />
-          <Text style={styles.registerButon}>
-           Register
-          </Text>
+        <View style={styles.buttonContainer} >
+          <Button transparent onPress={() => navigation.navigate('LoginScreen')}>
+            <Image
+              source={require('assets/buttons/button_4.png')}
+              style={styles.Button_4}
+            />
+          </Button>
+          <Button transparent onPress={() => navigation.navigate('RegisterScreen')} style={{ alignSelf: 'center' }}>
+            <Text style={styles.registerButon}>
+              Register
+            </Text>
+          </Button>
         </View>
       </View>
-
     )
   }
 }
@@ -36,8 +43,9 @@ const styles = StyleSheet.create({
     paddingTop: Constants.statusBarHeight,
     backgroundColor: '#ecf0f1'
   },
-  button1: {
-    marginTop: '15%'
+  buttonContainer: {
+    marginTop: '15%',
+    alignItems: 'center'
   },
   paragraph: {
     margin: 24,
@@ -59,7 +67,7 @@ const styles = StyleSheet.create({
 
   },
   buttonLogin:{
-    marginTop:'0%',
+    marginTop: 0,
     width: '20%',
     height: '10%',
     resizeMode: 'contain'
@@ -68,7 +76,11 @@ const styles = StyleSheet.create({
   registerButon:{
     marginTop: '5%',
     textAlign: 'center',
-    fontSize:15,
+    fontSize: 20,
     color:'#025339'
   }
 })
+
+FirstWelcomeScreen.propTypes = {
+  navigation: PropTypes.object
+}
