@@ -7,7 +7,7 @@ import AuthScreen from 'screens/AuthScreen'
 import UnAuthScreen from 'screens/UnAuthScreen'
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync'
 
-const RootStackNavigator = StackNavigator(
+export const RootStackNavigator = StackNavigator(
   {
     AuthScreen: {
       screen: AuthScreen
@@ -39,7 +39,7 @@ export default class RootNavigator extends React.Component {
   render () {
     return (
       <Root>
-        <RootStackNavigator />
+        <RootStackNavigator {...this.props} />
       </Root>
     )
   }

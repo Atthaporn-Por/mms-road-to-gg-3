@@ -79,7 +79,7 @@ export class FreeCallButton extends React.Component {
     return (
       <Button transparent disabled={timer && true}
         style={[styles.button, this.props.style]}
-        onPress={() => this.props.makeFreeCall()}>
+        onPress={() => this.props.makeFreeCall(123)}>
         <Image resizeMode='contain' style={[styles.buttonImage, timer ? styles.buttonCountDown : null]} source={require('assets/buttons/call.png')}>
           {timer ? this.getCountDownText() : null}
         </Image>
