@@ -38,7 +38,7 @@ export default function configureStore (initialState = Immutable.Map(), onComple
   )
 
   // persistStore(store, { storage: AsyncStorage }, onCompletion)
-  persistStore(store, { storage: AsyncStorage }, () => {
+  persistStore(store, { storage: AsyncStorage, whitelist: ['authentication', 'i18n'] }, () => {
     store.dispatch(updateRehydrated(true))
     onCompletion && onCompletion()
   })

@@ -1,3 +1,4 @@
+import { AsyncStorage } from 'react-native'
 import Immutable from 'immutable'
 import request from 'utils/request'
 // import I18n from 'utils/i18n'
@@ -55,7 +56,7 @@ export const login = (redirect = true) => {
   return (dispatch, getState) => {
     dispatch(signInLoading(true))
 
-    request.post('/admin/authentication/session')
+    request.post('/authentication/session')
       .send(getState().get('authentication').get('updateUserLogin').get('emailLogin'))
       .then(response => {
         dispatch(updateCurrentUser(response.body.admin_user))
@@ -79,7 +80,7 @@ export const oauthLogin = (redirect = true) => {
   return (dispatch, getState) => {
     dispatch(signInLoading(true))
 
-    request.post('/admin/authentication/session/oauth')
+    request.post('/authentication/session/oauth')
       .send(getState().get('authentication').get('updateUserLogin').get('oauthLogin'))
       .then(response => {
         dispatch(updateCurrentUser(response.body.admin_user))
@@ -109,7 +110,7 @@ export const logout = () => {
       .then(() => {
         dispatch(updateAccessToken(undefined))
         dispatch(updateCurrentUser(undefined))
-        localStorage.clear()
+        AsyncStorage.clear()
 
         // dispatch(push('/sign_in'))
       })

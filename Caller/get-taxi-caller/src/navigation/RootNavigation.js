@@ -3,18 +3,21 @@ import React from 'react'
 import { StackNavigator } from 'react-navigation'
 import { Root } from 'native-base'
 
-// import MainTabNavigator from './MainTabNavigator'
-import MainDrawerNavigator from './MainDrawerNavigator'
+import AuthScreen from 'screens/AuthScreen'
+import UnAuthScreen from 'screens/UnAuthScreen'
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync'
 
 const RootStackNavigator = StackNavigator(
   {
-    Main: {
-      // screen: MainTabNavigator
-      screen: MainDrawerNavigator
+    AuthScreen: {
+      screen: AuthScreen
+    },
+    UnAuthScreen: {
+      screen: UnAuthScreen
     }
   },
   {
+    initialRouteName: 'AuthScreen',
     headerMode: 'none',
     navigationOptions: () => ({
       headerTitleStyle: {
