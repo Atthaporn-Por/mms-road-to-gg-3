@@ -4,7 +4,7 @@ import { NavigationActions } from 'react-navigation'
 
 import request from 'utils/request'
 
-import { updateCurrentUser } from './authentication'
+import { updateCurrentUser, updateAccessToken } from './authentication'
 
 // ------------------------------------
 // Constants
@@ -34,7 +34,8 @@ export const submit = () => {
           console.log(error)
         }
         dispatch(finish())
-        dispatch(updateCurrentUser(res.body))
+        dispatch(updateCurrentUser(res.body.user))
+        dispatch(updateAccessToken(res.body.access_token))
         dispatch(NavigationActions.navigate({ routeName: 'AuthScreen' }))
       })
   }
