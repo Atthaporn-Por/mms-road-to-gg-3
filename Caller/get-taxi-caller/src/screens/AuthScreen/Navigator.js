@@ -8,12 +8,14 @@ import SideBar from './screens/SideBar'
 import MainScreen from './screens/MainScreen'
 import SettingsScreen from './screens/SettingsScreen'
 import HistoryScreen from './screens/HistoryScreen'
+import LogoutScreen from './screens/LogoutScreen'
 
 const AuthScreenNavigator = DrawerNavigator(
   {
     MainScreen: { screen: MainScreen },
     SettingsScreen: { screen: SettingsScreen },
-    HistoryScreen: { screen: HistoryScreen }
+    HistoryScreen: { screen: HistoryScreen },
+    LogoutScreen: { screen: LogoutScreen }
   },
   {
     initialRouteName: 'MainScreen',

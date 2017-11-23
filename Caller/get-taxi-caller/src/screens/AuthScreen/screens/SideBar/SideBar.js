@@ -15,6 +15,9 @@ const routes = [
   }, {
     name: 'Settings',
     navigate: 'SettingsScreen'
+  }, {
+    name: 'Logout',
+    navigate: 'LogoutScreen'
   }
 ]
 
