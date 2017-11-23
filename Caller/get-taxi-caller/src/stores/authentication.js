@@ -1,9 +1,9 @@
 import { AsyncStorage } from 'react-native'
 import { fromJS } from 'immutable'
-import request from 'utils/request'
-// import I18n from 'utils/i18n'
-
+import { createAction } from 'redux-actions'
 import { NavigationActions } from 'react-navigation'
+// import I18n from 'utils/i18n'
+import request from 'utils/request'
 
 // import { normalize } from 'stores/entities'
 import { setFlashMessage } from './interface'
@@ -13,16 +13,19 @@ import { setFlashMessage } from './interface'
 // ------------------------------------
 // Constants
 // ------------------------------------
-export const UPDATE_CURRENT_USER = 'UPDATE_CURRENT_USER'
-export const UPDATE_ACCESS_TOKEN = 'UPDATE_ACCESS_TOKEN'
-export const UPDATE_USER_LOGIN = 'UPDATE_USER_LOGIN'
-export const UPDATE_USER_O_AUTH = 'UPDATE_USER_O_AUTH'
+export const UPDATE_CURRENT_USER = 'authentication/UPDATE_CURRENT_USER'
+export const UPDATE_ACCESS_TOKEN = 'authentication/UPDATE_ACCESS_TOKEN'
+export const UPDATE_USER_LOGIN = 'authentication/UPDATE_USER_LOGIN'
+export const UPDATE_USER_O_AUTH = 'authentication/UPDATE_USER_O_AUTH'
+export const CLEAR = 'authentication/CLEAR'
 
-export const SIGN_IN_LOADING = 'SIGN_IN_LOADING'
+export const SIGN_IN_LOADING = 'authentication/SIGN_IN_LOADING'
 
 // ------------------------------------
 // Actions
 // ------------------------------------
+export const clear = createAction(CLEAR)
+
 function updateCurrentUser (user) {
   return {
     type    : UPDATE_CURRENT_USER,
@@ -37,7 +40,7 @@ function updateAccessToken (accessToken) {
   }
 }
 
-export function updateUserLogin (userLogin) {
+export function updateUserLogingin (userLogin) {
   return {
     type    : UPDATE_USER_LOGIN,
     payload : userLogin
@@ -66,9 +69,13 @@ export const login = (redirect = true) => {
 
     request.post('/authentication/session')
       .send(getState().get('authentication').get('userLogingin').get('emailLogin'))
-      .then(response => {
-        dispatch(updateCurrentUser(response.body.admin_user))
+      .then((error, response) => {
+        dispatch(updateCurrentUser(response.body.user))
         dispatch(updateAccessToken(response.body.access_token))
+
+        if (error) {
+          throw new Error(error)
+        }
 
         if (redirect) {
           dispatch(NavigationActions.navigate({ routeName: 'AuthScreen' }))
@@ -90,20 +97,24 @@ export const oauthLogin = (redirect = true) => {
 
     request.post('/authentication/session/oauth')
       .send(getState().get('authentication').get('userLogingin').get('oauthLogin'))
-      .then(response => {
-        dispatch(updateCurrentUser(response.body.admin_user))
+      .then((error, response) => {
+        dispatch(updateCurrentUser(response.body.user))
         dispatch(updateAccessToken(response.body.access_token))
 
-        if (redirect) {
-          dispatch(NavigationActions.navigate({ routeName: 'AuthScreen' }))
+        if (error) {
+          throw new Error(error)
         }
+
+        return { success: true }
       })
       .catch(error => {
         dispatch(setFlashMessage('signInError', error.response.body.message))
         console.warn(error.response.body.message)
+        return { success: false }
       })
-      .then(() => {
+      .then((res) => {
         dispatch(signInLoading(false))
+        return res
       })
   }
 }
@@ -144,6 +155,9 @@ const ACTION_HANDLERS = {
   },
   [UPDATE_USER_O_AUTH]: (state, { payload }) => {
     return state.mergeIn(['userLogingin', 'oauthLogin'], fromJS(payload))
+  },
+  [CLEAR]: (state, { payload }) => {
+    return initialState
   },
   [SIGN_IN_LOADING]: (state, { payload }) => {
     return state.merge({
