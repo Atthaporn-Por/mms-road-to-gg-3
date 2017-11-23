@@ -11,23 +11,28 @@ import {
   Button,
   Input
 } from 'native-base'
-import Icon from 'react-native-vector-icons/FontAwesome'
 
 import PopupLayout from 'layouts/PopupLayout'
+import OAuthPanel from '../../components/OAuthPanel'
 
 export class LoginScreen extends React.Component {
   render () {
     return (
       <PopupLayout title='Login' onPressBack={() => this.props.navigation.goBack()}>
-        <Content style={styles.container}>
-          <View style={[styles.loginBtnCon, styles.con]}>
-            <Button transparent style={styles.oAuthBtn} onPress={this.props.handleFacebookLogin}>
-              <Icon name='facebook-official' style={[styles.fbIcon, styles.icon]} />
-            </Button>
-            <Button transparent style={styles.oAuthBtn} onPress={this.props.handleGoogleLogin}>
-              <Icon name='google-plus-official' style={[styles.googleIcon, styles.icon]} />
-            </Button>
+        <Content padder style={styles.container}>
+          <View style={{ marginTop: 10, paddingLeft: 10 }}>
+            <Text>Login With</Text>
           </View>
+          <OAuthPanel
+            onFacebookLoggedIn={this.props.handleFacebookLogin}
+            onGoogleLoggedIn={this.props.handleGoogleLogin}
+          />
+          <View style={{
+            borderBottomColor: 'gray',
+            borderBottomWidth: 1,
+            marginTop: 10,
+            marginBottom: 20
+          }} />
           <Form>
             <Item rounded style={styles.container}>
               <Input placeholder='Username'
@@ -46,7 +51,7 @@ export class LoginScreen extends React.Component {
               onPress={this.props.login}
               style={{ marginVertical: 20 }}>
               <Text style={styles.loginText}>
-                Log-in
+                Login
               </Text>
             </Button>
           </Form>

@@ -6,6 +6,11 @@ import { Button } from 'native-base'
 import { Constants } from 'expo'
 
 export default class FirstWelcomeScreen extends Component {
+  componentDidMount () {
+    this.props.clearAuthentication()
+    this.props.clearRegister()
+  }
+
   render () {
     const { navigation } = this.props
 
@@ -82,5 +87,7 @@ const styles = StyleSheet.create({
 })
 
 FirstWelcomeScreen.propTypes = {
-  navigation: PropTypes.object
+  navigation: PropTypes.object,
+  clearRegister: PropTypes.func,
+  clearAuthentication: PropTypes.func
 }

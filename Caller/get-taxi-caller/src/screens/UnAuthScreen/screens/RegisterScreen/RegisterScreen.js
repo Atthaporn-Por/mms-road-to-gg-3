@@ -18,39 +18,63 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 import PopupLayout from 'layouts/PopupLayout'
+import OAuthPanel from '../../components/OAuthPanel'
 
 export class RegisterScreen extends React.Component {
   render () {
+    const { newUser, updateNewUser } = this.props
+
     return (<PopupLayout title='Login' onPressBack={() => this.props.navigation.goBack()}>
       <Content style={styles.container}>
-        <View style={styles.headCon}>
-          <Text style={styles.headText}>
-            Register With
-          </Text>
+        <View style={{ marginTop: 10, paddingLeft: 10 }}>
+          <Text>Login With</Text>
         </View>
+        <OAuthPanel
+          onFacebookLoggedIn={this.props.handleFacebookLogin}
+          onGoogleLoggedIn={this.props.handleGoogleLogin}
+        />
+        <View style={{
+          borderBottomColor: 'gray',
+          borderBottomWidth: 1,
+          marginTop: 10,
+          marginBottom: 20
+        }} />
+        <Item rounded style={styles.container}>
+          <Input placeholder='Username'
+            value={newUser.get('user')}
+            onChangeText={text => updateNewUser({ user: text })}
+          />
+        </Item>
+        <Item rounded style={styles.container}>
+          <Input placeholder='Name'
+            value={newUser.get('name')}
+            onChangeText={text => updateNewUser({ name: text })}
+          />
+        </Item>
+        <Item rounded style={styles.container}>
+          <Input placeholder='Email'
+            value={newUser.get('email')}
+            onChangeText={text => updateNewUser({ email: text })}
+          />
+        </Item>
+        <Item rounded style={styles.container}>
+          <Input placeholder='Password' secureTextEntry
+            value={newUser.get('password')}
+            onChangeText={text => updateNewUser({ password: text })}
+          />
+        </Item>
+        <Item rounded style={styles.container}>
+          <Input placeholder='Phone Number'
+            value={newUser.get('phone')}
+            onChangeText={text => updateNewUser({ phone: text })}
+          />
+        </Item>
         <View style={styles.con}>
-          <Button transparent style={styles.loginButton} onPress={this._handleFacebookLogin}>
-            <Icon name='facebook-official' style={styles.fbIcon} />
-          </Button>
-          <Button transparent style={styles.loginButton} onPress={this._handleGoogleLogin}>
-            <Icon name='google-plus-official' style={styles.googleIcon} />
-          </Button>
-        </View>
-        <Item rounded style={styles.container}>
-          <Input placeholder='Username' />
-        </Item>
-        <Item rounded style={styles.container}>
-          <Input placeholder='Email' />
-        </Item>
-        <Item rounded style={styles.container}>
-          <Input placeholder='Password' secureTextEntry />
-        </Item>
-        <Item rounded style={styles.container}>
-          <Input placeholder='Phone Number' />
-        </Item>
-        <View style={styles.con}>
-          <Button primary style={styles.loginButton}>
-            <Text>
+          <Button large primary
+            style={styles.loginButton}
+            disabled={this.props.registerLoading}
+            onPress={() => this.props.submit()}>
+            <Text large>
               Register
             </Text>
           </Button>
@@ -91,13 +115,18 @@ const styles = StyleSheet.create({
 })
 
 RegisterScreen.propTypes = {
-  isRegisterLoading: PropTypes.bool,
+  registerLoading: PropTypes.bool,
   navigation: PropTypes.object,
-  newUser: PropTypes.instanceOf(Map)
+  newUser: PropTypes.instanceOf(Map),
+
+  submit: PropTypes.func,
+  updateNewUser: PropTypes.func,
+  handleFacebookLogin: PropTypes.func,
+  handleGoogleLogin: PropTypes.func
 }
 
 RegisterScreen.defaultProps = {
-  isRegisterLoading: false,
+  registerLoading: false,
   newUser: Map()
 }
 
