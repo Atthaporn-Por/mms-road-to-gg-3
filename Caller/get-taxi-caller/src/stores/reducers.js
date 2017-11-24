@@ -2,6 +2,8 @@ import { combineReducers } from 'redux-immutable'
 
 export const makeRootReducer = (asyncReducers) => {
   return combineReducers({
+    navigation:     require('./navigation').default,
+    register:       require('./register').default,
     authentication: require('./authentication').default,
     entities:       require('./entities').default,
     interface:      require('./interface').default,

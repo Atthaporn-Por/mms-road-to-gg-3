@@ -15,7 +15,11 @@ export const CLEAR_RESERVARION = 'reservation/CLEAR_RESERVARION'
 // ------------------------------------
 // Actions
 // ------------------------------------
-export const updateFreeCallStamp = createAction(UPDATE_FREE_CALL_STAMP)
+// export const updateFreeCallStamp = createAction(UPDATE_FREE_CALL_STAMP)
+export const updateFreeCallStamp = (payload) => ({
+  type: UPDATE_FREE_CALL_STAMP,
+  payload: payload
+})
 export const updateReservation = createAction(UPDATE_RESERVARION)
 export const clearReservation = createAction(CLEAR_RESERVARION)
 

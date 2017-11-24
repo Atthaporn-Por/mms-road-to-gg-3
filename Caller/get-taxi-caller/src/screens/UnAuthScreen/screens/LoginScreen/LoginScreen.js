@@ -1,107 +1,62 @@
 import React from 'react'
-import { List, fromJS } from 'immutable'
-import { Facebook, Google } from 'expo'
+import { Map } from 'immutable'
 import PropTypes from 'prop-types'
 
-import { Image, StyleSheet, View, Alert } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import {
-  Left,
-  Body,
-  Right,
   Content,
-  Label,
+  Form,
   Item,
   Text,
   Button,
-  InputGroup,
   Input
 } from 'native-base'
-import Icon from 'react-native-vector-icons/FontAwesome'
 
-import MainScreenLayout from 'layouts/MainScreenLayout'
+import PopupLayout from 'layouts/PopupLayout'
+import OAuthPanel from '../../components/OAuthPanel'
 
 export class LoginScreen extends React.Component {
-  _handleFacebookLogin = async () => {
-    try {
-      const { type, token } = await Facebook.logInWithReadPermissionsAsync('1947365685589353', { // Replace with your own app id in standalone app
-        permissions: ['public_profile', 'email']
-      })
-
-      switch (type) {
-        case 'success': {
-          // Get the user's name using Facebook's Graph API
-          const response = await fetch(`https://graph.facebook.com/me?fields=id,name,picture,email&access_token=${token}`)
-          const profile = await response.json()
-          Alert.alert('Logged in!', `Hi ${profile.name}!`)
-          console.log('User token :', token)
-          break
-        }
-        case 'cancel': {
-          Alert.alert('Cancelled!', 'Login was cancelled!')
-          break
-        }
-        default: {
-          Alert.alert('Oops!', 'Login failed!')
-        }
-      }
-    } catch (e) {
-      Alert.alert('Oops!', 'Login failed!')
-    }
-  }
-  _handleGoogleLogin = async () => {
-    try {
-      const { type, user } = await Google.logInAsync({
-        androidStandaloneAppClientId: '<ANDROID_CLIENT_ID>',
-        iosStandaloneAppClientId: '<IOS_CLIENT_ID>',
-        androidClientId: '603386649315-9rbv8vmv2vvftetfbvlrbufcps1fajqf.apps.googleusercontent.com',
-        iosClientId: '603386649315-vp4revvrcgrcjme51ebuhbkbspl048l9.apps.googleusercontent.com',
-        scopes: ['profile', 'email']
-      })
-
-      switch (type) {
-        case 'success': {
-          Alert.alert('Logged in!', `Hi ${user.name}!`)
-          break
-        }
-        case 'cancel': {
-          Alert.alert('Cancelled!', 'Login was cancelled!')
-          break
-        }
-        default: {
-          Alert.alert('Oops!', 'Login failed!')
-        }
-      }
-    } catch (e) {
-      Alert.alert('Oops!', 'Login failed!')
-    }
-  }
   render () {
     return (
-      <MainScreenLayout >
-        <Content style={styles.container}>
-          <View style={[styles.loginBtnCon, styles.con]}>
-            <Button transparent style={styles.loginButton} onPress={this._handleFacebookLogin}>
-              <Icon name='facebook-official' style={[styles.fbIcon, styles.icon]} />
-            </Button>
-            <Button transparent style={styles.loginButton} onPress={this._handleGoogleLogin}>
-              <Icon name='google-plus-official' style={[styles.googleIcon, styles.icon]} />
-            </Button>
+      <PopupLayout title='Login' onPressBack={() => this.props.navigation.goBack()}>
+        <Content padder style={styles.container}>
+          <View style={{ marginTop: 10, paddingLeft: 10 }}>
+            <Text>Login With</Text>
           </View>
-          <Item rounded style={styles.container}>
-            <Input placeholder='Username' />
-          </Item>
-          <Item rounded style={styles.container}>
-            <Input placeholder='Password' secureTextEntry />
-          </Item>
-          <View style={styles.con}>
-            <Button primary style={styles.loginButton}>
-              <Text>
-                Log-in
+          <OAuthPanel
+            onFacebookLoggedIn={this.props.handleFacebookLogin}
+            onGoogleLoggedIn={this.props.handleGoogleLogin}
+          />
+          <View style={{
+            borderBottomColor: 'gray',
+            borderBottomWidth: 1,
+            marginTop: 10,
+            marginBottom: 20
+          }} />
+          <Form>
+            <Item rounded style={styles.container}>
+              <Input placeholder='Username'
+                value={this.props.userLogingin.get('user')}
+                onChangeText={text => this.props.updateUserLogingin({ user: text })}
+              />
+            </Item>
+            <Item rounded style={styles.container}>
+              <Input placeholder='Password' secureTextEntry
+                value={this.props.userLogingin.get('user')}
+                onChangeText={text => this.props.updateUserLogingin({ password: text })}
+              />
+            </Item>
+            <Button primary full large
+              disabled={this.props.signInLoading}
+              onPress={this.props.login}
+              style={{ marginVertical: 20 }}>
+              <Text style={styles.loginText}>
+                Login
               </Text>
             </Button>
-          </View>
+          </Form>
         </Content>
-      </MainScreenLayout>
+      </PopupLayout>
     )
   }
 }
@@ -111,7 +66,7 @@ const styles = StyleSheet.create({
     margin: '2.5%'
   },
   loginBtnCon: {
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     marginTop: 20,
     width: '100%',
     marginBottom: 10
@@ -122,11 +77,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 10
   },
-  loginButton: {
+  btnCon: {
     marginHorizontal: 10
   },
+  oAuthBtn: {
+    height: null,
+    marginHorizontal: 20
+  },
   icon: {
-    fontSize: 60
+    fontSize: 80
   },
   fbIcon: {
     color: '#3b5998'
@@ -137,15 +96,28 @@ const styles = StyleSheet.create({
   p: {
     alignItems: 'center',
     flexDirection: 'column'
+  },
+  loginText: {
+    width: '100%',
+    textAlign: 'center',
+    fontSize: 23,
+    lineHeight: 40
   }
 })
 
-// LoginScreen.propTypes = {
-//
-// }
-//
-// LoginScreen.defaultProps = {
-//
-// }
-//
+LoginScreen.propTypes = {
+  signInLoading: PropTypes.bool,
+  navigation: PropTypes.object,
+  userLogingin: PropTypes.instanceOf(Map),
+
+  updateUserLogingin: PropTypes.func,
+  login: PropTypes.func,
+  handleGoogleLogin: PropTypes.func,
+  handleFacebookLogin: PropTypes.func
+}
+
+LoginScreen.defaultProps = {
+  userLogingin: Map()
+}
+
 export default LoginScreen
