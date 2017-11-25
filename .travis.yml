@@ -2,12 +2,10 @@ matrix:
   include:
     - language: python
       python: "3.6"
-      before_install:
-        - cd Test
       install:
         - pip install PyMySQL
       script: 
-        - PYTHONPATH=../ pytest
+        - pytest
 
     - sudo: false
       language: node_js
