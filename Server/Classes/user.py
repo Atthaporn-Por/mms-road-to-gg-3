@@ -128,12 +128,10 @@ class User:
         mysql.close()
         return {'message' : 'logout sucessfully.'}
     
-    def editProfile(self,phoneNumber,facebookID_edit='',password_edit='',dataOfBirth_edit='',firstName_edit='',lastName_edit='',address_edit=''):
+    def editProfile(self,phoneNumber,facebookID_edit='',dataOfBirth_edit='',firstName_edit='',lastName_edit='',address_edit=''):
         mysql = MySQL()
         if facebookID_edit != '':
             mysql.update('UPDATE gettaxi.member SET facebook_id=%s WHERE phone=%s',(facebookID_edit,phoneNumber))
-        if password_edit != '':
-            mysql.update('UPDATE gettaxi.member SET password=%s WHERE phone=%s',(password_edit,phoneNumber))
         if dataOfBirth_edit != '':
             mysql.update('UPDATE gettaxi.member SET date_of_birth=%s WHERE phone=%s',(dataOfBirth_edit,phoneNumber))
         if firstName_edit != '':
@@ -158,7 +156,7 @@ class User:
         mysql.close()
         return {'user' : new_user_profile}
 
-    def deleteProfile(phoneNumber):
+    def deleteProfile(self, phoneNumber):
         mysql = MySQL()
         mysql.delete('DELETE FROM gettaxi.member WHERE phone = %s', (phoneNumber))
         mysql.close()
