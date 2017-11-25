@@ -34,19 +34,12 @@ class Driver:
 
     def accept(self, transactionID):
         # return int
-        self.status = 'accept'
-        self.isActive = 0
 
-    
     def pickup(self):
         # void
-        self.status = 'pickup'
 
     def dropOff(self):
         # void
-        self.status = 'dropoff'
-        self.isActive = 1
-
 
     def chat(self):
         # void
