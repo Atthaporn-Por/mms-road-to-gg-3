@@ -32,8 +32,16 @@ class Driver:
         return {'driver' : list_of_user }
 
 
-    def accept(self, transactionID):
-        # return int
+    def accept(self, phoneNumber):
+        mysql = MySQL()
+        user_status = mysql.query('SELECT status FROM gettaxi.subcriber_user WHERE phone=%s',(phoneNumber))[0][0]
+        if user_status == 'calling':
+            mysql.update('UPDATE gettaxi.subcriber_user SET status=match WHERE phone=%s',(phoneNumber))
+            mysql.close()
+            return {'message' : 'matching sucessfully'}
+        else:
+            mysql.close()
+            return {'message' : 'this user is already matched'}
 
     def pickup(self):
         # void

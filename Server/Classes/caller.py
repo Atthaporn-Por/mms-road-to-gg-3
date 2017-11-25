@@ -9,6 +9,14 @@ class Caller(User):
         mysql.close()
         return {'message' : '%s calling sucessfully.'.format(phoneNumber)}
 
+    def check_calling_status(self, phoneNumber):
+        user_status = mysql.query('SELECT status FROM gettaxi.subcriber_user WHERE phone=%s',(phoneNumber))[0][0]
+        if user_status == 'match':
+            return {'message' : 'matching sucessfully'}
+        else:
+            mysql.close()
+            return {'message' : 'try to match'}
+
     def searchTaxi(self, latitude , longitude):
         mysql = MySQL()
         min_latitude = latitude - 10.0
