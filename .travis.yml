@@ -8,9 +8,7 @@ matrix:
         - cd Test
       install:
         - pip install PyMySQL
-        - pip install -U pytest
-      script:
-        - pytest
+      script: pytest
 
 #    - sudo: false
 #      language: node_js
