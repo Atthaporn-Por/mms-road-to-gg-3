@@ -25,15 +25,9 @@ class User:
         try:
             user_token = list_of_results[0][0]
         except:
-            return {'error' : 'no id or token in database'}
+            return {'error' : 'token not match in database'}
         
-        if password == user_password:
-            try:
-                token = Generator().generate_token()
-                mysql.update('UPDATE gettaxi.member SET token=%s WHERE phone=%s',(token,phoneNumber))
-            except:
-                mysql.close()
-                return {'error' : 'cannot update token to database'}
+        if token == user_token:
             (phone, type, date_of_birth, facebook_id, email, address, firstname, lastname) = (mysql.query('SELECT * FROM gettaxi.member WHERE phone = %s', phoneNumber))[0]
             if type == 'driver':
                 try:
@@ -63,7 +57,7 @@ class User:
             return {'user' : user_profile}
         else:
             mysql.close()
-            return {'error' : 'inValid id or password (login with token)'}
+            return {'error' : 'inValid token. please login (login with token)'}
 
     def login(self, phoneNumber, password, real_time_lat_location, real_time_long_location, status, direction=''):
         mysql = MySQL()
