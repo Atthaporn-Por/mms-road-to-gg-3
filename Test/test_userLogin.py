@@ -6,7 +6,7 @@ from Server.Classes.user import User
 
 def test_userInvalid():
     dicU = login(None,"0802281312","f47a2f73a5a0b11bec357163b97fac6db2be67873ffafe49583db4f81610457e",20.000001,20.000001,"online",None)
-    print dicU
+    print (dicU)
     assert True
 
 def test_wrongPassword():
