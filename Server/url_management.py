@@ -25,7 +25,22 @@ def url_management(path, querys):
         return {'error' : 'invalid address'}
 
 def user(path_list, querys_dict):
-    if path_list[2] == 'login':
+    if path_list[2] == 'loginWithToken':
+        try:
+            user_id = querys_dict['id']
+            token = querys_dict['token']
+            latitude = querys_dict['latitude']
+            longitude = querys_dict['longitude']
+            status = querys_dict['status']
+            direction = querys_dict['direction']
+        except:
+            return {'error' : 'inValid syntax id or token'}
+        if 'direction' in querys_dict:
+            return User().login_with_token(user_id,token,latitude,longitude,status,direction)
+        else:
+            return User().login_with_token(user_id,token,latitude,longitude,status)
+
+    elif path_list[2] == 'login':
         try:
             user_id = querys_dict['id']
             password = querys_dict['password']
