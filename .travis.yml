@@ -7,6 +7,7 @@ matrix:
       before_install:
         - cd Test
       install:
+        - pip install -r requirements.txt
         - pip install PyMySQL
       script: 
         - pytest
