@@ -1,7 +1,8 @@
 # test_userLogin.py
 import pytest
 import sys
-from ..Server.Classes.user import User
+sys.path.append("..")
+from .Server.Classes.user import User
 
 def test_userInvalid():
     assert True
