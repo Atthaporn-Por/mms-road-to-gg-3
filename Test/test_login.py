@@ -1,7 +1,7 @@
 # test_login.py
 import pytest
 import sys
-from mms-road-to-gg-3.Server.Classes import user
+from ..Server.Classes.user import User
 
 def test_userInvalid():
     assert True
