@@ -27,12 +27,18 @@ def url_management(path, querys):
 def user(path_list, querys_dict):
     if path_list[2] == 'login':
         try:
-            if 'direction' in querys_dict:
-                return User().login(querys_dict['id'],querys_dict['password'],querys_dict['latitude'],querys_dict['longitude'],querys_dict['status'],querys_dict['direction'])
-            else:
-                return User().login(querys_dict['id'],querys_dict['password'],querys_dict['latitude'],querys_dict['longitude'],querys_dict['status'])
+            user_id = querys_dict['id']
+            password = querys_dict['password']
+            latitude = querys_dict['latitude']
+            longitude = querys_dict['longitude']
+            status = querys_dict['status']
+            direction = querys_dict['direction']
         except:
             return {'error' : 'inValid syntax id or password'}
+        if 'direction' in querys_dict:
+            return User().login(user_id,password,latitude,longitude,status,direction)
+        else:
+            return User().login(user_id,password,latitude,longitude,status)
     elif path_list[2] == 'logout':
         try:
             return User().logout(querys_dict['id'])

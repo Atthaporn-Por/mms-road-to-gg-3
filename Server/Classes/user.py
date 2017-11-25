@@ -1,5 +1,6 @@
 from .position import Position
 from .MySQL.mySQL import MySQL
+from .generator import Generator
 
 class User:
   
@@ -16,27 +17,37 @@ class User:
     def login(self, phoneNumber, password, real_time_lat_location, real_time_long_location, status, direction=''):
         mysql = MySQL()
         try:
-            list_of_results = mysql.query('SELECT password FROM gettaxi.member WHERE phone = %s', phoneNumber)
-        except Error as error:
+            list_of_results = mysql.query('SELECT password FROM gettaxi.account WHERE phone = %s', phoneNumber)
+        except:
             mysql.close()
-            return {'error' : error}
-        (user_password) = list_of_results[0]
+            return {'error' : 'error to check password from database'}
+        
+        try:
+            user_password = list_of_results[0][0]
+        except:
+            return {'error' : 'no id or password in database'}
 
         if password == user_password:
-            (phone, type, password, date_of_birth, facebook_id, email, address, firstname, lastname) = (mysql.query('SELECT * FROM gettaxi.member WHERE phone = %s', phoneNumber))[0]
+            try:
+                token = Generator().generate_token()
+                mysql.update('UPDATE gettaxi.member SET token=%s WHERE phone=%s',(token,phoneNumber))
+            except:
+                mysql.close()
+                return {'error' : 'cannot update token to database'}
+            (phone, type, date_of_birth, facebook_id, email, address, firstname, lastname) = (mysql.query('SELECT * FROM gettaxi.member WHERE phone = %s', phoneNumber))[0]
             if type == 'driver':
                 try:
                     mysql.insert('INSERT INTO gettaxi.subcriber_driver (phone, real_time_lat_location, real_time_long_location, direction, status) VALUES (%s, %s, %s, %s, %s)',(phoneNumber,real_time_lat_location,real_time_long_location,direction,status))
-                except Error as error:
+                except:
                     mysql.close()
-                    return {'error' : error}
+                    return {'error' : 'cannot insert driver to data base maybe login twice'}
             elif type == 'user':
                 try:
                     print(status)
                     mysql.insert('INSERT INTO gettaxi.subcriber_user (phone, real_time_lat_location, real_time_long_location, status) VALUES (%s, %s, %s, %s)',(phoneNumber,real_time_lat_location,real_time_long_location,status))
-                except Error as error:
+                except:
                     mysql.close()
-                    return {'error' : error}
+                    return {'error' : 'cannot insert user to data base maybe login twice'}
 
             user_profile = {
                 'facebookID': facebook_id,
@@ -52,7 +63,7 @@ class User:
             return {'user' : user_profile}
         else:
             mysql.close()
-            return {'error' : 'inValid id or password'}
+            return {'error' : 'inValid id or password (user)'}
 
     def logout(self, phoneNumber):
         mysql = MySQL()
@@ -100,6 +111,12 @@ class User:
 
         mysql.close()
         return {'user' : new_user_profile}
+
+    def deleteProfile(phoneNumber):
+        mysql = MySQL()
+        mysql.delete('DELETE FROM gettaxi.member WHERE phone = %s', (phoneNumber))
+        mysql.close()
+        return {'message' : 'user %s is deleted'.format(phoneNumber) }
 
     def sendRegEmail(self, email, password):
         return -1
