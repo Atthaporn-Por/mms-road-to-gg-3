@@ -1,5 +1,3 @@
-# test_wallet.py
-import pytest
 def inc(x):
     return x + 1
 
