@@ -9,7 +9,7 @@ matrix:
       install:
         - pip install PyMySQL
       script:
-        - pytest test_test.py
+        - pytest
 
 #    - sudo: false
 #      language: node_js
