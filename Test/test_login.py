@@ -1,6 +1,6 @@
 # test_login.py
 import pytest
-from ..Server.Classes import user
+from .Server.Classes import user
 
 def test_userInvalid():
     assert True
