@@ -1,12 +1,11 @@
 matrix:
   include:
     - language: python
-      python:
-        - "3.6"
+      python: "3.6"
       before_install:
         - cd Test
       install:
-        - pip install -r requirements.txt
+        - pip install PyMySQL
       script: 
         - pytest
 
