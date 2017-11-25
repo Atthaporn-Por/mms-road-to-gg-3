@@ -1,5 +1,6 @@
 from .position import Position
 from .MySQL.mySQL import MySQL
+from .generator import Generator
 
 class User:
   
@@ -27,6 +28,12 @@ class User:
             return {'error' : 'no id or password in database'}
 
         if password == user_password:
+            try:
+                token = Generator().generate_token()
+                mysql.update('UPDATE gettaxi.member SET token=%s WHERE phone=%s',(token,phoneNumber))
+            except:
+                mysql.close()
+                return {'error' : 'cannot update token to database'}
             (phone, type, date_of_birth, facebook_id, email, address, firstname, lastname) = (mysql.query('SELECT * FROM gettaxi.member WHERE phone = %s', phoneNumber))[0]
             if type == 'driver':
                 try:
