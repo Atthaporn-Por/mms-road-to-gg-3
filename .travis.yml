@@ -3,7 +3,6 @@ matrix:
     - language: python
       python:
         - 3.6
-        - nightly
       before_install:
         - cd Test
       install:
