@@ -5,7 +5,7 @@
     "exp": "exp",
     "test": "node ./node_modules/jest/bin/jest.js --watch",
     "postinstall": "rndebugger-open --expo",
-    "start": "exp start",
+    "start": "exp start --no-dev",
     "dev": "exp start --dev --exp --lan",
     "dev-debug": "rndebugger-open --expo & exp start --dev --exp --lan"
   },
@@ -18,7 +18,7 @@
     "axios": "^0.17.1",
     "babel-plugin-transform-inline-environment-variables": "^0.2.0",
     "exp": "^46.0.3",
-    "expo": "^22.0.0",
+    "expo": "^22.0.4",
     "glob": "^7.1.2",
     "immutable": "^3.8.2",
     "lodash": "^4.17.4",

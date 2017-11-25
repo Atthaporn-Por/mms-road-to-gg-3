@@ -19,7 +19,11 @@
       "assetExts": ["ttf"]
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.mmsroadtogg3.gettaxicaller"
+    },
+    "android": {
+      "package": "com.mmsroadtogg3.gettaxicaller"
     }
   }
 }

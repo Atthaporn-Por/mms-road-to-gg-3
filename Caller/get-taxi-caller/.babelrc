@@ -3,10 +3,28 @@
     "babel-preset-expo",
     "react-native-dotenv"
   ],
+  "plugins": [
+    ["module-resolver", {
+      "root": ["./src"],
+      "alias": {
+        "underscore": "lodash"
+      }
+    }]
+  ],
   "env": {
     "development": {
       "plugins": [
-        "transform-react-jsx-source",
+        ["module-resolver", {
+          "root": ["./src"],
+          "alias": {
+            "underscore": "lodash"
+          }
+        }],
+        "transform-react-jsx-source"
+      ]
+    },
+    "production": {
+      "plugins": [
         ["module-resolver", {
           "root": ["./src"],
           "alias": {
