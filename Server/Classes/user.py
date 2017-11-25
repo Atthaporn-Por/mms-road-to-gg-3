@@ -16,6 +16,7 @@ class User:
 
     def login(self, phoneNumber, password, real_time_lat_location, real_time_long_location, status, direction=''):
         mysql = MySQL()
+        token = ''
         try:
             list_of_results = mysql.query('SELECT password FROM gettaxi.account WHERE phone = %s', phoneNumber)
         except:
@@ -30,7 +31,7 @@ class User:
         if password == user_password:
             try:
                 token = Generator().generate_token()
-                mysql.update('UPDATE gettaxi.member SET token=%s WHERE phone=%s',(token,phoneNumber))
+                mysql.update('UPDATE gettaxi.account SET token=%s WHERE phone=%s',(token,phoneNumber))
             except:
                 mysql.close()
                 return {'error' : 'cannot update token to database'}
@@ -60,7 +61,7 @@ class User:
                 'email': email
             }
             mysql.close()
-            return {'user' : user_profile}
+            return {'user' : user_profile,'token' : token}
         else:
             mysql.close()
             return {'error' : 'inValid id or password (user)'}
