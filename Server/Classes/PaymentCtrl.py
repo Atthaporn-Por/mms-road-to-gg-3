@@ -9,7 +9,7 @@ class PaymentCtrl:
         print('sentPayment')
 
     def collectTransaction(self):
-        pirint('collectTransaction')
+        print('collectTransaction')
         
 
     def getAmountfromTran(self,transactionID):
