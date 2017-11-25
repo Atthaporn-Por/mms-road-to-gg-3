@@ -1,6 +1,7 @@
 # test_login.py
 import pytest
-from .Server.Classes import user
+import sys
+sys.path.insert(0, mms-road-to-gg-3/Server/Classes/user.py)
 
 def test_userInvalid():
     assert True
