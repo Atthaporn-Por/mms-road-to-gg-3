@@ -2,9 +2,12 @@
   "main": "node_modules/expo/AppEntry.js",
   "private": true,
   "scripts": {
+    "exp": "exp",
     "test": "node ./node_modules/jest/bin/jest.js --watch",
-    "set-debug": "rndebugger-open --expo",
-    "debug": "start 'rndebugger://set-debugger-loc?host=localhost&port=19001'"
+    "postinstall": "rndebugger-open --expo",
+    "start": "exp start",
+    "dev": "exp start --dev --exp --lan",
+    "dev-debug": "rndebugger-open --expo & exp start --dev --exp --lan"
   },
   "jest": {
     "preset": "jest-expo"
@@ -14,6 +17,7 @@
     "@mapbox/polyline": "^0.2.0",
     "axios": "^0.17.1",
     "babel-plugin-transform-inline-environment-variables": "^0.2.0",
+    "exp": "^46.0.3",
     "expo": "^22.0.0",
     "immutable": "^3.8.2",
     "lodash": "^4.17.4",
