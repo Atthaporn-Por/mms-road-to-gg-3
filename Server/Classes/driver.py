@@ -34,7 +34,7 @@ class Driver:
 
     def accept(self, transactionID):
         # return int
-    
+
     def pickup(self):
         # void
 
