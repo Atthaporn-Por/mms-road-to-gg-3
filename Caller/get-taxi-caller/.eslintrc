@@ -11,7 +11,6 @@
         "import",
         "react-native",
         "babel",
-        "react",
         "promise"
     ],
     "globals": {
@@ -19,10 +18,12 @@
       "__TEST__"     : false,
       "__PROD__"     : false,
       "__COVERAGE__" : false,
+      "fetch" : false,
       "alert" : false,
       "_" : false
     },
     "rules": {
+        "react/jsx-uses-react": 1,
         "no-underscore-dangle": "off",
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
         "key-spacing"          : 0,

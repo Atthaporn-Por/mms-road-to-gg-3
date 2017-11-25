@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import { AppLoading, Asset, Font } from 'expo'
 import { Ionicons, FontAwesome } from '@expo/vector-icons'
 // import RootNavigation from './navigation/MainDrawerNavigator'
-import RootNavigation from 'navigation/RootNavigation'
+import AppWithNavigationState from 'containers/AppWithNavigationState'
 import createStore from 'stores/configureStore'
 
 import { HOST_URL } from 'react-native-dotenv'
@@ -35,7 +35,7 @@ const store = createStore(initialState)
 // Window the AsyncStorage
 // ========================================================
 window.AsyncStorage = AsyncStorage
-console.log('To clear storage : AsyncStorage.clear() then restart app')
+console.log('To clear storage : AsyncStorage.clear() \nthen restart app')
 
 // ========================================================
 // Render Setup
@@ -60,7 +60,7 @@ export default class App extends React.Component {
           <View style={styles.container}>
             {Platform.OS === 'ios' && <StatusBar barStyle='default' />}
             {Platform.OS === 'android' && <View style={styles.statusBarUnderlay} />}
-            <RootNavigation />
+            <AppWithNavigationState />
           </View>
         </Provider>
       )
@@ -70,15 +70,13 @@ export default class App extends React.Component {
   _loadResourcesAsync = async () => {
     return Promise.all([
       Asset.loadAsync([
+        // glob.sync('assets/buttons/*.*'),
         require('assets/images/robot-dev.png'),
         require('assets/images/robot-prod.png')
       ]),
       Font.loadAsync([
-        // This is the font that we are using for our tab bar
         Ionicons.font,
         FontAwesome.font,
-        // We include SpaceMono because we use it in HomeScreen.js. Feel free
-        // to remove this if you are not using it in your app
         {
           'Roboto': require('native-base/Fonts/Roboto.ttf'),
           'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf')
