@@ -1,8 +1,8 @@
 # test_userLogin.py
 import pytest
 import sys
-sys.path.append("..")
-from .Server.Classes.user import User
+sys.path.append("../Server/Classes")
+from user import User
 
 def test_userInvalid():
     assert True
